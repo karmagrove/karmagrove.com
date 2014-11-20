@@ -1,6 +1,8 @@
 class UsersController < InheritedResources::Base
 
-
+  def create
+    Rails.logger.info "shit"
+  end
 
   def email_subscribe
     return "fail" unless params[:email]
