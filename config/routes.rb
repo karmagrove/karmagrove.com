@@ -13,6 +13,8 @@ Karmagrove::Application.routes.draw do
   put '/buddhas', to: 'buddhas#create'
 
 
+  get '/circle', to:  'circles#index'
+
   # match '/buddhas', to: 'buddhas#dharmaya'
 
   resources :markets

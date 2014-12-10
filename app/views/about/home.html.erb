@@ -4,12 +4,19 @@
     </div>
     <!-- /.col-sm-8 -->
     <div class="col-sm-4">
+
         <h1> Welcome to Karma Grove</h1>
-        <p>We are a group of people dedicated to a sustainable gift economy.  We desire for commerce to be more conscious, and when you give gifts to us we insist a charity benefit. What we are fighting for cannot be bought or sold.  This is not about charity.  This is about justice.  </p>
+        <p>We are a group of people cultivating conscious economy.  We desire for commerce to be more conscious, and when you give gifts to us we insist a charity benefit and give you the choice. What we are fighting for cannot be bought or sold.  This is not about charity.  This is about justice.  Join us.  </p>
 
-        <a id="home-get-involved-button"class="btn btn-default btn-lg" href="/Get-Involved"> <%= image_tag 'circle.png', size: "25x25" %> Get involved</a>
+  <!--        <button class="btn btn-default btn-lg dropdown-toggle">
+          <a id="home-get-involved-button" href="/Get-Involved"> 
+          <%= image_tag 'circle.png', size: "50x50" %> Get involved
+          </a>
+        </button> -->
 
 
+         <a class="btn btn-primary btn-lg" href="/Get-Involved">Get involved</a>
+         <a href="/Get-Involved"><%= image_tag 'circle.png' %></a>
 
     </div>
     <!-- /.col-sm-4 -->
@@ -60,6 +67,7 @@
     </div>
 </div>
 
+<%= render partial: "about/circle_call_to_action" %>
 
 <!-- Content Row -->
 <div class="row">
