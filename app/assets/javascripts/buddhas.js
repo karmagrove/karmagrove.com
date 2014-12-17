@@ -21,7 +21,43 @@
       };
      
       balanced.card.create(creditCardData, function(response) {
-       console.log(response.status);
+       console.log(response.status, "response status");
+       console.log("balanced Card Create!");
+
+       switch (response.status) {
+         case 201:
+             // WOO HOO! MONEY!
+             // response.data.uri == URI of the bank account resource you
+             // can store this card URI in your database
+             console.log(response.data);
+             // var $form = $("#credit-card-form");
+             // the uri is an opaque token referencing the tokenized card
+             var cardTokenURI = response.data['uri'];
+             console.log(cardTokenURI,"cardTokenURI");
+             // append the token as a hidden field to submit to the server
+             $('<input>').attr({
+                type: 'hidden',
+                value: cardTokenURI,
+                name: 'balancedCreditCardURI'
+             }).appendTo($form);
+             break;
+         case 400:
+             // missing field - check response.error for details
+             console.log(response.error);
+             break;
+         case 402:
+             // we couldn't authorize the buyer's credit card
+             // check response.error for details
+             console.log(response.error);
+             break
+         case 404:
+             // your marketplace URI is incorrect
+             console.log(response.error);
+             break;
+         case 500:
+             // Balanced did something bad, please retry the request
+         break;
+       }     
        /*
          response.data:
            Contains the body of the card resource, which you can find
