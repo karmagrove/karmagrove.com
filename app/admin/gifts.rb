@@ -1,11 +1,53 @@
 ActiveAdmin.register Gift do
 
 
-  index do
-    column :purchase_price
-    column :cost
-    # default_actions
-  end	
+    controller do
+      # This code is evaluated within the controller class
+
+      def update
+        Rails.logger.info("update")
+    
+        Rails.logger.info(params)
+        #super
+        @purchase = Purchase.find params[:gift][:id]
+
+        @purchase.update_attributes(Gift.filter_attributes(params[:gift]))
+        @purchase.profit_donation_percent=(params[:gift][:profit_donation_percent])
+        @purchase.save
+        Rails.logger.info("PURCHASE and gift params #{Gift.filter_attributes(params[:gift]).inspect}")
+        Rails.logger.info(@purchase.inspect)
+        # Instance method
+        super
+      end
+    end
+
+  
+
+  # index do
+  #   #column :name
+  #   default_actions
+  #   # column :description
+  #   # column "Release Date", :created_at
+  #   # column :price do |product|
+  #   #   number_to_currency product.price, :unit => "&dollar;"
+  #   # end
+  # end
+
+   index do
+
+     column :product #{|product| product.name}
+     column :product_description do |purchase| purchase.product.description end
+     column :donation
+     column :purchase_price
+     column :cost
+     column :revenue_donation_percent
+     column :profit_donation_percent
+     column :buyer
+     column :seller
+
+
+     default_actions
+   end	
 
 
   form do |f|
@@ -14,11 +56,12 @@ ActiveAdmin.register Gift do
 
         f.input :purchase_price
         f.input :cost
-        
+        f.input :id, :as => :hidden 
         # f.input :products 
         @resources = Product.all
-        f.input :product, :as => :check_boxes, :selected => @resources, :multiple => false,  :collection => @resources.map {| p| [p.name, p.id] }
-        f.input :product_description
+        f.input :product, :as => :radio, :collection => @resources.map {| p| [p.name, p.id] }
+        #f.input :product, :as => :check_boxes, :selected => @resources, :multiple => false,  :collection => @resources.map {| p| [p.name, p.id] }
+        f.input :product_description #do |purchase| purchase.product.description end
         f.input :revenue_donation_percent
         f.input :profit_donation_percent
    		  

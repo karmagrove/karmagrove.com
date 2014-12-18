@@ -1,6 +1,8 @@
 class Gift < Purchase
   has_many :purchases, :foreign_key => "seller_id"
   # attr_accessible :title, :body
+  # attr_reader :product_description
+
   attr_accessor :total_costs, :costs, :purchase_prices, :product_description, :revenue_donation_percent, :profit_donation_percent, :product_charities
 
   def total_cost_of_sales

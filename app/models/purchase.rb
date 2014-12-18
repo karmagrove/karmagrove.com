@@ -1,3 +1,12 @@
+module ActiveRecord
+  class Base
+    def self.filter_attributes(hash)
+      hash.stringify_keys.slice(*self.accessible_attributes.to_a)
+    end
+  end
+end
+
+
 class Purchase < ActiveRecord::Base
   belongs_to :product
   belongs_to :buyer
@@ -5,10 +14,14 @@ class Purchase < ActiveRecord::Base
   belongs_to :donation
   belongs_to :batch
 
-  attr_accessible :stripe_customer_token, :buyer_id, :product_id,
+
+
+
+  attr_accessor :stripe_customer_token, :buyer_id, :product_id,
                   :seller_id, :state, :donation_id, :id, :stripe_transaction_id, :retailer_id,
                   :batch_id, :cost, :purchase_price, :users
-
+  
+  #accessible_attributes :attr_accessor                  
   ## final purchase price is for auction only....
 
   ## Validate here that the batch is not closed before allowing a purchase of a batch that is done....
@@ -20,6 +33,9 @@ class Purchase < ActiveRecord::Base
     state :completed
   end
 
+  # def self.filter_attributes(hash)
+  #     hash.stringify_keys.slice(*self.accessible_attributes.to_a)
+  # end
 
  # TODO - does this make sense?  to ahndle here in intialize?  RYAN?
  # def initialize(arg1=nil,arg2=nil)
