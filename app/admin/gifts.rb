@@ -11,7 +11,7 @@ ActiveAdmin.register Gift do
         #super
         @purchase = Purchase.find params[:gift][:id]
 
-        @purchase.update_attributes(Gift.filter_attributes(params[:gift]))
+#        @purchase.update_attributes(Gift.filter_attributes(params[:gift]))
         @purchase.profit_donation_percent=(params[:gift][:profit_donation_percent])
         @purchase.save
         Rails.logger.info("PURCHASE and gift params #{Gift.filter_attributes(params[:gift]).inspect}")
