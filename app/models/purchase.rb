@@ -58,6 +58,20 @@ class Purchase < ActiveRecord::Base
  # end
 
   # validates_presence_of  :product_id
+  def save_with_balanced_payment(params={})
+    begin
+      @purchase_id = params[:purchase_id]      
+      card_url = params[:card_url]
+      card = Balanced::Card.fetch(card_url)
+      price = params[:price] * 100
+      card.debit(:amount => price)
+      Rails.logger.info("save with balaned")
+    rescue Exception => e
+      Rails.logger.info("save with balaned Exception #{e.inspect}")
+    end
+  end
+
+
 
   def save_with_payment(params={})
     begin

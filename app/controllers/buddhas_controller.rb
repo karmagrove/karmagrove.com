@@ -21,6 +21,33 @@ class BuddhasController < InheritedResources::Base
   end
 
   def create
+    Rails.logger.info("params #{params.inspect}")
+    # redirect_to "/purchases/#{@purchase.id}/donations/new"
+    @buyer = User.find_by_email(params[:email])
+
+    Rails.logger.info("buyer #{@buyer}")
+    @purchase = Purchase.new(:buyer_id => @buyer.id, :product_id => params[:product][:id])
+    @purchase.save
+    Rails.logger.info("purchase #{@purchase}")
+    if @purchase.save_with_balanced_payment({:purchase_id => @purchase.id, card_url: params[:balancedCreditCardURI], :price => params[:price]})
+      # @windows_buddha_links = ["https://s3.amazonaws.com/karmagrove/tob-zips-1-17.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-18-34.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-35-49.sitx"]
+      @buddha_links = ["https://s3.amazonaws.com/karmagrove/tob-zips-1-17.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-18-34.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-35-49.sitx"]
+      @user = User.last
+      @purchase= Purchase.last
+      mailer_params = {user: @user, purchase: @purchase}
+      Rails.logger.info "purchase with payment..."
+      email = Notifier.send_purchase_email(mailer_params)
+      email.deliver
+      Rails.logger.info email
+      redirect_to "/purchases/#{@purchase.id}/donations/new"
+
+      # , :url => {:action => "new"}, :notice => "Thank you for purchasing!"
+    else
+      render :new
+    end
+  end
+
+  def create_stipe
 
     #  Til we have this under wraps do not want to be charging people
     Stripe.api_key = "sk_test_B5RUJ3ZgW7BnB5VKp1vNbE7e"

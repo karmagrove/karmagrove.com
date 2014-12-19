@@ -11,7 +11,7 @@ gem 'font-awesome-less'
 gem "font-awesome-rails"
 gem 'omniauth'
 gem 'omniauth-facebook'
-gem 'balanced'
+gem 'balanced', "1.1"
 gem 'faraday','~> 0.8.6'
 
 gem "koala", "~> 1.7.0rc1"

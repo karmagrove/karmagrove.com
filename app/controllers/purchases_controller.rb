@@ -113,7 +113,7 @@ end
     end
   end
 
-#POST /products/:id/purchases
+#POST /products/:id/purchases/new
   def create
     rails.logger.info "IN POST PRUCASE"
   @purchase = Purchase.new(params[:purchase])
