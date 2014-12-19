@@ -1,25 +1,160 @@
 ActiveAdmin.register Gift do
 
 
-    controller do
-      # This code is evaluated within the controller class
+  controller do
+    # This code is evaluated within the controller class
 
-      def update
+    def create
+        Rails.logger.info("CREATE")
+
+        @gift = params[:gift]
+        @gift[:product_charities] =    @gift[:product_charities].delete_if {|pc| pc == "" }
+        Rails.logger.info @gift.inspect
+
+        if @gift[:product_id]
+            @product_id = @gift[:product_id]
+
+        elsif @gift[:product_description] != ""
+          @product = Product.create! :description => @gift[:product_description], :name => @gift[:product_description]
+          @product_id = @product.id
+        end
+         @gift.delete :product_description
+
+
+       
+
+
+        # if @gift[:product_description] and @product_id = nil
+        #   @product = Product.create :name => @gift[:product_description], :description => @gift[:product_description]
+        #   @product_id = @product.id
+        #   @product
+        #   Rails.logger.info "AFTEr PRODCuT CREATE prdoct id  #{@product_id}"
+        # end
+
+        if @gift[:product_charities].length > 0 
+          @gift[:product_charities].each do |charity_id|
+            unless charity_id == ""
+                  @pc = ProductCharity.create :charity_id => charity_id, :product_id => @product_id
+  
+                  Rails.logger.info @pc.inspect
+                  # @product_id = product_id
+            end
+                
+          end 
+        end
+        @gift.delete :product_charities
+
+        @buyer_id = @gift[:users].last
+
+
+        Rails.logger.info "prpduct id #{@product_id}"
+
+        @gift[:buyer_id] = @buyer_id
+        @gift[:cost] = @gift[:cost].to_i
+        @gift[:buyer_id] = @buyer_id
+        @gift.delete :users
+        @purchase = Purchase.create! @gift
+        #:product_id => @product_id.to_i, :buyer_id => @buyer_id.to_i
+        @purchase.product = Product.find @product_id
+        @purchase.buyer = Buyer.find @buyer_id
+        @purchase.state= "given_online"
+        @purchase.profit_donation_percent= @gift[:profit_donation_percent]
+        @purchase.save
+        Rails.logger.info "prpduct id #{@product_id}, buyer #{@buyer_id} and purchase #{@purchase.inspect}"
+        # "batch_id", "buyer_id", "cost", "created_at", "donation_id", "product_id", "profit_donation_percent", "purchase_price", "retailer_id", "revenue_donation_percent", "seller_id", "state", "stripe_customer_token", "stripe_transaction_id"
+        @gift
+        #
+        
+            
+        if @gift[:cost]
+            Rails.logger.info "@gift[:cost] #{@gift[:cost]}   "
+            @purchase.cost = @gift[:cost]    
+        end
+        
+
+        if @gift[:revenue_donation_percent] 
+            @purchase.revenue_donation_percent = @gift[:revenue_donation_percent]
+            message = "Whatever amount of money you choose to give us we will donate #{@gift[:revenue_donation_percent]}% to charity of your choice"
+
+        elsif @gift[:profit_donation_percent] and @gift[:cost]
+            @purchase.profit_donation_percent = @gift[:profit_donation_percent]
+            message = "Whatever amount of money you choose to give us we will donate #{@gift[:profit_donation_percent]}% of anything over #{@gift[:cost]} to charity of your choice"      
+        end
+
+        if @purchase.save
+
+           ## Send email ... 
+                 #@buddha_links = ["https://s3.amazonaws.com/karmagrove/tob-zips-1-17.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-18-34.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-35-49.sitx"]
+            mailer_params = {recipient: @purchase.buyer, gift: @purchase}
+            email = Notifier.send_gift_email(mailer_params)
+            email.deliver
+            Rails.logger.info email
+
+           Rails.logger.info "saved @purchase #{@purchase.inspect}     "
+           respond_to do |format|
+             format.html { redirect_to "/admin/gifts", notice: 'Product was successfully updated.' }
+             format.json { head :no_content }    
+         
+           end
+        else
+            respond_to do |format|
+             format.html { redirect_to "/admin/gifts", notice: 'Product was Not updated so good.' }
+             format.json { head :no_content }    
+         
+           end
+         end
+      
+    end
+
+    def update
         Rails.logger.info("update")
     
         Rails.logger.info(params)
         #super
         @purchase = Purchase.find params[:gift][:id]
-
-#        @purchase.update_attributes(Gift.filter_attributes(params[:gift]))
         @purchase.profit_donation_percent=(params[:gift][:profit_donation_percent])
         @purchase.save
+
         Rails.logger.info("PURCHASE and gift params #{Gift.filter_attributes(params[:gift]).inspect}")
         Rails.logger.info(@purchase.inspect)
         # Instance method
+
+        if params[:gift][:users]
+          Rails.logger.info(":users are real")
+          buyer = params[:gift][:users].last
+          params[:buyer] = Buyer.find buyer
+        end
+        params[:gift].delete :users
+
+        if params[:gift][:product_description] != ""
+          @product = Product.create! :description => @gift[:product_description], :name => @gift[:product_description]
+          @product_id = @product.id
+          params[:gift][:product_id] = @product_id
+        end
+        params[:gift].delete :product_description
+        
+        params[:gift][:product_charities].delete_if {|pc| pc == "" }
+
+        if params[:gift][:product_charities].length > 0 
+          params[:gift][:product_charities].each do |charity_id|
+            unless charity_id == ""
+                  @pc = ProductCharity.create :charity_id => charity_id, :product_id => @product_id
+  
+                  Rails.logger.info @pc.inspect
+                  # @product_id = product_id
+            end                
+          end 
+        end
+        params[:gift].delete :product_charities
+        #params[:gift][:product_charities].delete_if {|c| c == ""}
+
+        @purchase.update_attributes(params[:gift])
+        @purchase.save
+        Rails.logger.info("paraams final #{params.inspect}")
         super
-      end
     end
+  end
+  
 
   
 
@@ -33,21 +168,28 @@ ActiveAdmin.register Gift do
   #   # end
   # end
 
-   index do
+  index do
 
      column :product #{|product| product.name}
-     column :product_description do |purchase| purchase.product.description end
+     column :product_description  do |purchase| 
+      if purchase.product
+        purchase.product.description
+      else
+        ""
+      end
+     end
+
      column :donation
      column :purchase_price
      column :cost
-     column :revenue_donation_percent
-     column :profit_donation_percent
+     column :revenue_donation_percent do |gift| gift.revenue_donation_percent.to_s end
+     column :profit_donation_percent do |gift| gift.profit_donation_percent.to_s end
      column :buyer
      column :seller
 
 
      default_actions
-   end	
+  end	
 
 
   form do |f|
@@ -77,26 +219,6 @@ ActiveAdmin.register Gift do
   	  end
       f.buttons
   end
-  # form do |f|
-  #   f.inputs "Batch" do 
-  #     f.input :batch_name
-  #     f.input :sales
-  #     f.input :state, :as => :radio, :collection => ["open","closed"]
-  
-  #     f.input :products, :as => :radio, :collection => Product.all.map {| p| [p.name, p.id] }
-  #     # TODD : make batch products creatable for a batch,
-  #     # f.input :batch_products, :as => :select, :collection => Product.all
-  #     #f.input :roles, :as => :radio, :collection => User.roles.map { |role| [I18n.t("active_admin.user.role.#{role.name}"), role.id] }
-  #     # batch charity 
-  #     @resources = BatchCharity.where(:batch_id => self.id)
-  #     f.input :products, :as => :check_boxes, :selected => @resources, :multiple => true,  :collection => Charity.all.map {| p| [p.legal_name, p.id] }
-  #     # f.inputs do
-  #     #    f.has_many :products do |bc|
-  #     #      bc.input :charity_id
-  #     #    end
-  #     # end
-  #   end
-  # f.buttons
-  # end  
+ 
 
 end

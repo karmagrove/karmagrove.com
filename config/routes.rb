@@ -47,13 +47,13 @@ Karmagrove::Application.routes.draw do
 
   match '/admin/batches/:batch_id', to: "batches#update"
 
-  post '/admin/gifts/', to: "gifts#create"
+  # post '/admin/gifts/', to: "gifts#create"
 
   ActiveAdmin.routes(self)
   post '/admin/batches/:id', to: "batches#update"
   put '/admin/batches/:id', to: "batches#update"
 
-  post '/admin/gifts', to: "gifts#create"
+  # post '/admin/gifts', to: "gifts#create"
   put '/admin/gifts/:id', to: "gifts#update"
 
 

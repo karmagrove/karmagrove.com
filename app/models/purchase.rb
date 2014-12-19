@@ -17,9 +17,9 @@ class Purchase < ActiveRecord::Base
 
 
 
-  attr_accessor :stripe_customer_token, :buyer_id, :product_id,
+  attr_accessible :stripe_customer_token, :buyer_id, :product_id,
                   :seller_id, :state, :donation_id, :id, :stripe_transaction_id, :retailer_id,
-                  :batch_id, :cost, :purchase_price, :users
+                  :batch_id, :cost, :purchase_price, :users, :revenue_donation_percent, :profit_donation_percent
   
   #accessible_attributes :attr_accessor                  
   ## final purchase price is for auction only....
@@ -57,7 +57,7 @@ class Purchase < ActiveRecord::Base
  #   @response
  # end
 
-  validates_presence_of  :product_id
+  # validates_presence_of  :product_id
 
   def save_with_payment(params={})
     begin

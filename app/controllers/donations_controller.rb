@@ -2,6 +2,8 @@ class DonationsController < ApplicationController
 
 
   def new
+    @product_charities = Charity.limit 3
+     Rails.logger.info("Params #{params}")
     if params[:batch_id]  
       @batch_id = params[:batch_id]
       @batch = Batch.find(@batch_id)
@@ -9,6 +11,7 @@ class DonationsController < ApplicationController
       @charities = Charity.find(@charity_ids)
       if @charities.nil?
         @charities = Charity.find [99837, 99838, 99839]
+       # @product_charities = Charity.limit 3
       end
   
       @batch_charities = BatchCharity.all
@@ -18,12 +21,25 @@ class DonationsController < ApplicationController
       @disable_nav = true
       @disable_sidebar = true
     elsif params[:purchase_id]  # this is maybe a lil smelly - allow batches to override product preferences for charitys?
-      @purchase = Purchase.find params[:purchase_id]
-      @product = @purchase.product
-      @charity_ids = ProductCharity.where(:product_id => @product.id).map {|product_charity| product_charity.charity_id }      
+      @gift = Gift.find params[:purchase_id]
+      # @product = @purchase.product
+      
+      @product_charities = @gift.product.product_charities.limit 3
+      @charity_ids = @product_charities.map {|product_charity| product_charity.charity_id }      
+      @charities = Charity.where(:id => @charity_ids)
+      #ProductCharity.where(:product_id => @product.id).map {|product_charity| product_charity.charity_id }      
       if @charity_ids.empty?
-        @charities = Charity.limit 3
+        @product_charities = Charity.limit 3
       end
+
+    # elsif params[:id]
+    #   Rails.logger.info("aqui")
+    #   @purchase = Purchase.find params[:id]
+    #   @product = @purchase.product
+    #   @charity_ids = ProductCharity.where(:product_id => @product.id).map {|product_charity| product_charity.charity_id }      
+    #   if @charity_ids.empty?
+    #     @product_charities = Charity.limit 3
+    #   end      
 
     end
 
