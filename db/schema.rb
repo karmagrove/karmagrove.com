@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141204233329) do
+ActiveRecord::Schema.define(:version => 20141219191008) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -155,6 +155,8 @@ ActiveRecord::Schema.define(:version => 20141204233329) do
     t.integer  "amount"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.string   "payment_url"
+    t.string   "payment_image_url"
   end
 
   add_index "charity_payments", ["charity_id"], :name => "index_charity_payments_on_charity_id"

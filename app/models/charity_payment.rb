@@ -2,10 +2,7 @@ class CharityPayment < ActiveRecord::Base
   has_many :donations
   has_many :batch_charity_payments
 
-
-
-  attr_accessible :payment_provider, :payment_reference, :state, :charity_id, :amount
-
+  attr_accessible :payment_provider, :payment_reference, :state, :charity_id, :amount, :payment_image_url
 
   def pay(amount = self.amount, description="distribution from karmagrove")
 

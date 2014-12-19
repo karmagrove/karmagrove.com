@@ -72,7 +72,7 @@ ActiveAdmin.register Gift do
         end
         
 
-        if @gift[:revenue_donation_percent] 
+        if @gift[:revenue_donation_percent]
             @purchase.revenue_donation_percent = @gift[:revenue_donation_percent]
             message = "Whatever amount of money you choose to give us we will donate #{@gift[:revenue_donation_percent]}% to charity of your choice"
 

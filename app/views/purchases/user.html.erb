@@ -9,7 +9,7 @@ Thanks for checking out the purchases of <%= @user.name %>
 
 		<li> <%= purchase.product.name %> is what you bought.
 			<% if purchase.donation and purchase.donation.charity and purchase.donation.charity.legal_name %>
-			- <%= purchase.donation.charity.legal_name %> is who you gave <%=purchase.donation.amount%>to.  
+			- <%= purchase.donation.charity.legal_name %> is who you gave <%=purchase.donation.amount%>to on <%=purchase.updated_at%>.  
 			<% end %>
 		</li>
 	<% end %>
