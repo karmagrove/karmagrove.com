@@ -53,7 +53,7 @@ ActiveAdmin.register Gift do
         @gift[:cost] = @gift[:cost].to_i
         @gift[:buyer_id] = @buyer_id
         @gift.delete :users
-        @purchase = Purchase.create! @gift
+        @purchase = Gift.create! @gift
         #:product_id => @product_id.to_i, :buyer_id => @buyer_id.to_i
         @purchase.product = Product.find @product_id
         @purchase.buyer = Buyer.find @buyer_id
@@ -92,13 +92,13 @@ ActiveAdmin.register Gift do
 
            Rails.logger.info "saved @purchase #{@purchase.inspect}     "
            respond_to do |format|
-             format.html { redirect_to "/admin/gifts", notice: 'Product was successfully updated.' }
+             format.html { redirect_to "/admin/gifts", notice: 'Gift was successfully updated.' }
              format.json { head :no_content }    
          
            end
         else
             respond_to do |format|
-             format.html { redirect_to "/admin/gifts", notice: 'Product was Not updated so good.' }
+             format.html { redirect_to "/admin/gifts", notice: 'Gift was Not updated so good.' }
              format.json { head :no_content }    
          
            end
