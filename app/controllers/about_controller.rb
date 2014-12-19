@@ -2,6 +2,7 @@ class AboutController < ApplicationController
 
   def index
   #  @products = Product.all
+  @charity_payments = CharityPayment.where("amount is not null")
   @disable_sidebar = true
   respond_to do |format|
       format.html # index.html.erb
@@ -41,6 +42,7 @@ def grove
     # respond_to do |format|
     #   format.html # joy_coin.html.erb
    #   format.json { render json: @products }
+   @charity_payments = CharityPayment.where("amount is not null").reverse[0...3]
    render :home
     # end
   end

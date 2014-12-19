@@ -1,7 +1,7 @@
 <h1 style="text-align:center"> Thanks for donating! </h1>
 <% if @purchase.product.name == "Teaching of Buddha" %>
 <h3>
- You just gave approximately $1.00 to <%= @charity.legal_name %>.  
+You just gave $2.00 to <%= @charity.legal_name %> for purchasing the teaching of buddha<%if @price%> for $<%= @price %><%end%>.
 <%= link_to " Connect your facebook", "/auth/facebook/login?donation_id=#{params[:purchase_id]}", id: "sign_in" %>
 and share what you have done with your friends and family as well as review your past donations.
 </h3>
@@ -28,7 +28,7 @@ Would you like to connect facebook and gain access to your transaction history, 
 
 <% else %>
 <h3>
- You just gave one equally weighted vote to <%= @charity.legal_name %>.  The exact amount of the donation will be updated at the end of the month when costs are known and the total money collected for your purchase or event attended is certain.  
+ You just gave one equally weighted vote to <%= @charity.legal_name %><%if @price%> for your gift of $<%= @price %><%end%> for <%= @product.name%>.   The exact amount of the donation will be updated at the end of the month when costs are known and the total money collected for your purchase or event attended is certain.  
 </h3>
 
 
@@ -56,5 +56,11 @@ Would you like to connect facebook and gain access to your transaction history, 
   <%= link_to "Sign in with Facebook", "/auth/facebook/login?donation_id=#{params[:purchase_id]}", id: "sign_in" %>
 <% end %>
 
+<% if @need_payment %>
+<h2> Didn't pay? </h2>
+
+<%= render :partial => "purchases/balanced_payment" %>
+
 </div>
 
+<% end %>

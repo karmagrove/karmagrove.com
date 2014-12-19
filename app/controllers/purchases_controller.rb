@@ -69,8 +69,7 @@ end
   end
 
   def update
-    @disable_nav = true
-    @disable_sidebar = true
+    @need_payment = true
     if params[:purchase_id]
       @purchase_id = params[:purchase_id]
     end
@@ -78,6 +77,22 @@ end
        @purchase_id = params[:purchase][:id]
     end
     @purchase = Purchase.find(@purchase_id)
+
+    if params[:balancedCreditCardURI]
+      cardURLtoCharge = params[:balancedCreditCardURI] 
+      
+      @price = params[:price]
+
+      if @purchase.save_with_balanced_payment({:purchase_id => @purchase.id, card_url: params[:balancedCreditCardURI], :price => params[:price]})
+        @need_payment = false
+        #@purchase
+      end  
+    end
+
+
+    @disable_nav = true
+    @disable_sidebar = true
+    
     @product = Product.find(@purchase.product_id)
     @donation_id =
     if params[:donation] and params[:donation][:id].to_i.class == Fixnum

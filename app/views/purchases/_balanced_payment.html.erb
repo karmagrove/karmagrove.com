@@ -1,0 +1,76 @@
+<%= form_for @purchase, :url => "/donations/#{@charity.id}/purchases/#{@purchase.id}/update" do |f| %>
+  <% if @purchase.errors.any? %>
+    <div class="error_messages">
+      <h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this purchase from being saved:</h2>
+      <ul>
+      <% @purchase.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  
+
+  <% if @product and @product.image_url %>
+
+    <%= image_tag(@product.image_url,{:alt => @product.name}) %>
+
+  <% end %>
+  <h4> You are purchasing the audio of <%= @product.name %> </h4>
+  <h4> We will deliver to your email below. </h4>
+  <h4> After payment you may choose a charity. </h4>
+
+  <%= f.hidden_field :buyer_id %>
+  <%= f.hidden_field :id %>
+
+  <%= fields_for :product do |product| %>
+    <%= product.hidden_field :id, :value => @product.id %>
+  <% end %>
+
+  <% if current_user %>
+  <%= fields_for :user do |buyer| %>
+    <%= buyer.hidden_field :email, :value => current_user.email %>
+  <% end %>
+  <%end %>
+ <div class="field">
+      <%= label_tag :price, "Amount charged to your card " %>
+      <%= text_field_tag :price, "10.00", name: "price" %>
+  </div>
+   <div class="field">
+      <%= label_tag :cc_name, "Name on Card " %>
+      <%= text_field_tag :cc_name, nil, name: nil %>
+  </div>
+  <div class="field">
+      <%= label_tag :card_number, "Credit Card Number " %>
+      <%= text_field_tag :card_number, nil, name: nil %>
+  </div>
+  <div class="field">
+      <%= label_tag :card_code, "Security Code on Card (CVV)" %>
+      <%= text_field_tag :card_code, nil, name: nil %>
+  </div>
+  <div class="field">
+    <%= label_tag :card_month, "Card Expiration" %>
+    <%= select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month"}%>
+    <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year"}%>
+  </div>
+  <div class="field">
+      <%= label_tag :postal_code, "Your Card's Postal Code" %>
+      <%= text_field_tag :postal_code, nil, name: nil %>
+  </div>
+  
+  <% unless current_user %>
+    <%= fields_for :user do |buyer| %>
+    <%= label_tag :email, "Your email " %>
+    <%= text_field_tag :email, nil, name: "email" %>
+    <% end %>
+  <% end %>
+   <div id="stripe_error">
+    <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+  </div>
+  <div class="actions"><%= f.submit "Purchase" , :id => "purchaseButton" %></div>
+  <a href='https://www.expeditedssl.com/simple-ssl-scanner/scan?target_domain=www.karmagrove.com' target='_blank' alt='Expedited SSL Scanner'><img src='https://www.expeditedssl.com/ssl-secure-badge.png'></a>
+  <h3> You may have the teaching of buddha on <a href="https://s3.amazonaws.com/karmagrove/BUDDHA.PDF"> pdf for free </a></h3>
+
+<% end %>
