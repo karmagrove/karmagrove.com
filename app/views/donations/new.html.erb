@@ -23,7 +23,11 @@
 
  <% @charities.each do |charity| %>
     <br />
+    <% if @gift %>
     <a href="/donations/<%=charity.id%>/purchases/<%=@gift.id%>/update"> <button class="btn btn-large btn-block" type="button">
+    <% elsif @purchase %>
+    <a href="/donations/<%=charity.id%>/purchases/<%=@purchase.id%>/update"> <button class="btn btn-large btn-block" type="button">
+    <% end %>
       <h3> <%= charity.legal_name %>
          <% if charity.city && charity.state %>
            <small> <%= charity.city %>, <%= charity.state %> </small>
@@ -35,8 +39,9 @@
          <% end %>
       </h3>
       <br />
+      <p class="charity_description" style="margin-bottom:4px;white-space: normal;">
       <%= charity.deductibility_status_description %>
-
+      </p>
     </button>
     </a>
   <% end %>

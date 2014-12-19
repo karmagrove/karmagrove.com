@@ -47,6 +47,7 @@ def grove
 
   def temp_donations
     @disable_sidebar = true
+    @charity_payments = CharityPayment.where("amount is not null")
     render :temp_donations
   end
 

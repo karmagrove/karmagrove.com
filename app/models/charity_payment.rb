@@ -1,8 +1,13 @@
 class CharityPayment < ActiveRecord::Base
   has_many :donations
   has_many :batch_charity_payments
+  belongs_to :charity
 
   attr_accessible :payment_provider, :payment_reference, :state, :charity_id, :amount, :payment_image_url
+
+  def pretty_date
+    return "#{self.created_at.month}/#{self.created_at.day}/#{self.created_at.year}"   
+  end
 
   def pay(amount = self.amount, description="distribution from karmagrove")
 

@@ -66,9 +66,10 @@
 
     </tbody>
   </table>
+
   <% end %>
   <p>
-    90% of every sale through Karma Grove, whether in our marketplace or elsewhere, is given to charity. Of that 90%, 50% is given to a charity of the buyer's (your) choice. To determine which charity the remaining 40% of the transaction revenue is donated to, we ask you to <b><a href="/batches/5/donations/new">vote on our website.</a></b>
+    A portion of every sale through Karma Grove, whether in our marketplace or elsewhere, is given to charity. Usually 50% of either the revenue or the profit is given to a charity of the buyer's (your) choice. To determine which charity the benefits, we ask you to <b><a href="/batches/<%=Batch.last.id%>/donations/new">vote on our website.</a></b>
   </p>
 
   <p>In 2013, Karma Grove gave away more Karma Coins than sold, and 90% of total revenue went to Grey Bears.  Thanks to early supporters <a href="https://twitter.com/sentinelcafe" target="new">Sentinel Cafe</a> for partnering and Santa Cruzians of <a href="https://twitter.com/cruzio" target="new"> Cruzio </a> for supporting us. So far in 2014, we've given over $300.00 to the charities listed on this page, and we hope to increase our sharing ten fold within the upcoming year. <a href="/Karma-Coin">Will you join us?</a></p>
@@ -76,9 +77,17 @@
   <div class="well well-lg">
     <h4><a class="list-group-item" href="#">Your votes decide which charities will receive funds from Karma Grove</a></h4>
   </div>
+  
+  <% if @charity_payments %>
+  <div class="well well-lg">
 
 
-  <hr class="col-md-12">
+    <%= render partial: "about/charity_payments" %>
+   </div>
+   <% end %>
+
+
+  <!-- <hr class="col-md-12"> -->
 
 <!--   <div class="row">
     <div class="col-md-12">
@@ -107,7 +116,6 @@
     </div> -->
 
     <hr>
-
     <div class="row">
       <div class="col-md-12">
         <h2 id="sec2"><a href="http://www.genesisshelter.org/">Genesis Womens Center</a></h2>
