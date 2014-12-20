@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141219191008) do
+ActiveRecord::Schema.define(:version => 20141220213711) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -172,6 +172,34 @@ ActiveRecord::Schema.define(:version => 20141219191008) do
 
   add_index "donations", ["charity_id"], :name => "index_donations_on_charity_id"
   add_index "donations", ["purchase_id"], :name => "index_donations_on_purchase_id"
+
+  create_table "event_discounts", :force => true do |t|
+    t.string   "code"
+    t.integer  "price"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "event_discounts", ["event_id"], :name => "index_event_discounts_on_event_id"
+
+  create_table "events", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "price"
+    t.string   "image_url"
+    t.integer  "seller_id"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "zip_code"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "events", ["seller_id"], :name => "index_events_on_seller_id"
 
   create_table "markets", :force => true do |t|
     t.string   "country"
