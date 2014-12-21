@@ -1,4 +1,4 @@
-ActiveAdmin.register Gift do
+ActiveAdmin.register Gift do |this_gift|
 
 
   controller do
@@ -211,7 +211,13 @@ ActiveAdmin.register Gift do
         f.input :users, :as => :check_boxes, :selected => @receivers, :multiple => false,  :collection => @receivers.map {| p| [p.email, p.id] }
         
         @charities = Charity.all
-        f.input :product_charities, :as => :check_boxes, :selected => @charities, :multiple => true,  :collection => @charities.map {| p| [p.legal_name, p.id] }
+        if params[:id]
+          @gift = Gift.find(params[:id])
+          @selected = @gift.product.product_charities
+        else
+          @selected = []
+        end
+        f.input :product_charities, :as => :check_boxes, :checked => @selected, :multiple => true,  :collection => @charities.map {| p| [p.legal_name, p.id] }
         # f.input :user, :as => :text
         
         # f.input :customer_email

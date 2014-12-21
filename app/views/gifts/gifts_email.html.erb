@@ -1,5 +1,26 @@
 <p>Thank you for receiving the gift of <%= @gift.product.name %> </p>
 
+
+<% if  @gift.product.description %> 
+
+  <p>Thank you for receiving the gift: <%= @gift.product.description %> </p>
+
+<% end %>
+
+<% if @gift.cost %>
+
+  <p> The cost of the gift you have recieved is $<%= @gift.cost /100 %> </p>
+
+  <% if @gift.profit_donation_percent %> 
+    <p>  <%= @gift.profit_donation_percent %>% of the amount you pay above the cost will be donated to a charity of your choice </p>      
+  <% end %> 
+
+<% end %>  
+
+<% if @gift.price %>
+
+<% end %>
+
 Choose who benefits at http://www.karmagrove.com/purchases/<%=@gift.id%>/donations/new
 
   <% @charities.each do |charity| %>

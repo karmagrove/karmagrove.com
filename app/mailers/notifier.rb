@@ -90,7 +90,8 @@ class Notifier < ActionMailer::Base
     begin
       @user = params[:recipient]
       @event = params[:event]
-      @charity_ids = @event.product.product_charities.limit 3
+      @gift = params[:gift]
+      @charity_ids = @event.product_charities.limit 3
       Rails.logger.info("@charity_ids.inspect: #{@charity_ids.inspect}")      
       @charity_ids.map! {|pc| pc.charity_id }
       @charities = Charity.where(:id => @charity_ids.to_a)

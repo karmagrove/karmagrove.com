@@ -23,7 +23,7 @@ class BuddhasController < InheritedResources::Base
   def create
     Rails.logger.info("params #{params.inspect}")
     # redirect_to "/purchases/#{@purchase.id}/donations/new"
-    @buyer = User.find_by_email(params[:email])
+    @buyer = User.find_or_create_by_email(params[:email])
 
     Rails.logger.info("buyer #{@buyer}")
     @purchase = Purchase.new(:buyer_id => @buyer.id, :product_id => params[:product][:id])
