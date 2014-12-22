@@ -63,7 +63,7 @@ class Purchase < ActiveRecord::Base
       @purchase_id = params[:purchase_id]      
       card_url = params[:card_url]
       card = Balanced::Card.fetch(card_url)
-      price = params[:price] * 100
+      price = params[:price].to_i * 100
       card.debit(:amount => price)
       Rails.logger.info("save with balaned")
     rescue Exception => e
