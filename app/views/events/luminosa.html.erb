@@ -65,6 +65,13 @@ luminosa.html.erb
       <%= label_tag :postal_code, "Your Card's Postal Code" %>
       <%= text_field_tag :postal_code, nil, name: nil %>
   </div>
+
+  <% unless current_user %>
+    <%= fields_for :user do |buyer| %>
+    <%= label_tag :email, "Your email " %>
+    <%= text_field_tag :email, nil, name: "email" %>
+    <% end %>
+  <% end %>
  
   
   <div class="actions"><%= f.submit "Purchase" , :id => "purchaseButton" %></div>
