@@ -35,7 +35,7 @@ class BuddhasController < InheritedResources::Base
       @user = User.find_or_create_by_email(params[:email])
       #@purchase= Purchase.last
       mailer_params = {user: @user, purchase: @purchase}
-      Rails.logger.info "purchase with payment..."
+      Rails.logger.info "purchase with payment...#{@purchase}"
       email = Notifier.send_purchase_email(mailer_params)
       email.deliver
       Rails.logger.info email

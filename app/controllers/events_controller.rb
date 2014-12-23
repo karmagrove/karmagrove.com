@@ -37,10 +37,12 @@ class EventsController < InheritedResources::Base
          email = Notifier.send_purchase_email(mailer_params)
          email.deliver
          Rails.logger.info email
-         redirect_to "/purchases/#{@purchase.id}/donations/new"
-	     email = Notifier.send_event_ticket(mailer_params)
+         email = Notifier.send_event_ticket(mailer_params)
          email.deliver
-		 
+         redirect_to "/purchases/#{@purchase.id}/donations/new"
+	    
+		 else
+
 	   end
 
 	end
