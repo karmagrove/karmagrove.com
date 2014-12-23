@@ -6,8 +6,8 @@ class Gift < Purchase
   # attr_accessible :title, :body
   # attr_reader :product_description
   attr_reader :revenue_donation_percent, :profit_donation_percent
-  attr_accessor :total_costs, :costs, :purchase_prices, :product_description, :revenue_donation_percent, :profit_donation_percent, :product_charities
-  attr_accessible :total_costs, :costs, :purchase_prices, :product_description, :revenue_donation_percent, :profit_donation_percent, :product_charities
+  attr_accessor :total_costs, :costs, :purchase_price, :product_description, :revenue_donation_percent, :profit_donation_percent, :product_charities
+  attr_accessible :total_costs, :costs, :purchase_price, :product_description, :revenue_donation_percent, :profit_donation_percent, :product_charities
 
   def total_cost_of_sales
     costs = self.purchases.map(&:cost)

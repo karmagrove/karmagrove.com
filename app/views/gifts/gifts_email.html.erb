@@ -9,31 +9,37 @@
 
 <% if @gift.cost %>
 
-  <p> The cost of the gift you have recieved is $<%= @gift.cost /100 %> </p>
+  <p> The cost of the gift you have recieved is $<%= (@gift.cost.to_i/100).to_s %> </p>
 
   <% if @gift.profit_donation_percent %> 
-    <p>  <%= @gift.profit_donation_percent %>% of the amount you pay above the cost will be donated to a charity of your choice </p>      
+    <p>  
+    <% @gift.profit_donation_percent.to_s %> percent of the amount you pay above the cost will be donated to a charity of your choice 
+    </p>
   <% end %> 
 
 <% end %>  
 
-<% if @gift.price %>
+<% if @gift.purchase_price %>
 
 <% end %>
 
-Choose who benefits at http://www.karmagrove.com/purchases/<%=@gift.id%>/donations/new
+Choose who benefits at <a href="http://www.karmagrove.com/purchases/<%= @gift.id.to_s %>/donations/new"> from your donation </a>
 
   <% @charities.each do |charity| %>
     <br />
-    <a href="http://www.karmagrove.com/donations/<%=charity.id%>/purchases/<%=@gift.id%>/update"> <button class="btn btn-large btn-block" type="button">
+    <a href="http://www.karmagrove.com/donations/<%= charity.id.to_s %>/purchases/<%= @gift.id.to_s %>/update"> 
+    <button class="btn btn-large btn-block" type="button">
       <h3> <%= charity.legal_name %>
-         <% if charity.city && charity.state %>
-           <small> <%= charity.city %>, <%= charity.state %> </small>
-         <% elsif charity.city %>
-           <small> <%= charity.city %> </small>
+        <% if charity.city && charity.state %>
+             <small> <%= charity.city %>, <%= charity.state %> </small>
+        <% elsif charity.city %>
+         <small> 
+               <%= charity.city %> 
+           </small>
          <% elsif charity.state %>
-           <small> <%= charity.state %> </small>
+             <small> <%= charity.state %> </small>
          <% else %>
+             <!--Nothing here....  -->
          <% end %>
       </h3>
       <br />

@@ -85,7 +85,9 @@ ActiveAdmin.register Gift do |this_gift|
 
            ## Send email ... 
                  #@buddha_links = ["https://s3.amazonaws.com/karmagrove/tob-zips-1-17.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-18-34.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-35-49.sitx"]
+            
             mailer_params = {recipient: @purchase.buyer, gift: @purchase}
+            Rails.logger.info ("mailer_params: #{mailer_params}" )
             email = Notifier.send_gift_email(mailer_params)
             email.deliver
             Rails.logger.info email
