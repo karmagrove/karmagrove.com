@@ -1,8 +1,10 @@
-Thank you for purchasing a ticke to <%= event.name %>
+Thank you for purchasing a ticke to <%= @event.name %>
+
+THIS IS NOT A REAL TICKET!!  We are testing! 
 
 Please keep this email for your records and bring a copy or screenshot of the following QR code to the event along with a valid photo id.  
 
-<%= image(http://www.karmagrove.com/purchases/<%=@gift.id%>.svg) %>
+<%= image_tag("http://www.karmagrove.com/purchases/#{@gift.id}.svg") %>
 
 Choose who benefits at http://www.karmagrove.com/purchases/<%=@gift.id%>/donations/new
 

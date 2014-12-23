@@ -39,11 +39,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def find_or_create_by_email(email)
+  def self.find_or_create_by_email(email)
     if User.exists?(:email => email)
-      user = User.where(:email => email)
+      user = User.where(:email => email).first
     else
-      user = User.create!(:email => email,:password => "")
+      user = User.create!(:email => email,:password => "fakepassword")
     end
     return user
   end

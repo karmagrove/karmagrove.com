@@ -11,8 +11,9 @@ Karmagrove::Application.routes.draw do
 
   match '/purchases/user/:user_id', to: 'purchases#user'
 
-  match '/luminosa', to: 'events#luminosa'
+  get '/luminosa', to: 'events#luminosa'
   post '/luminosa', to: 'events#purchase'
+  put '/luminosa', to: 'events#purchase'
 
   match '/buddha', to: 'buddhas#dharmaya'
   get '/buddhas', to:  'buddhas#dharmaya'

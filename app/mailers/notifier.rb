@@ -86,7 +86,7 @@ class Notifier < ActionMailer::Base
   end
 
   def send_event_ticket(params={})
-     Rails.logger.info("params: #{params}")  
+     Rails.logger.info("send_event_ticket: params: #{params}")  
     begin
       @user = params[:recipient]
       @event = params[:event]
