@@ -116,7 +116,13 @@ end
       @purchase.donation_id = @donation.id
       @purchase.save
     end
-
+    if @purchase.purchase_price == nil
+       if @purchase.cost != nil 
+          @purchase.purchase_price = @purchase.cost * 1.8
+       else
+         @purchase.cost = 61.30
+       end
+    end
     # session['callback_code'] = @code
     if @purchase.donation_id
       respond_to do |format|
