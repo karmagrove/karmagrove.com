@@ -1,19 +1,20 @@
-<p>Thank you for receiving the gift of <%= @gift.product.name %> </p>
+<p>
+  Thank you for receiving the gift of <%= @gift.product.name %> 
+</p>
 
+<% if @gift.product.description %> 
 
-<% if  @gift.product.description %> 
-
-  <p>Thank you for receiving the gift: <%= @gift.product.description %> </p>
+  <p> <%= @gift.product.description %> </p>
 
 <% end %>
 
 <% if @gift.cost %>
 
-  <p> The cost of the gift you have recieved is $<%= (@gift.cost.to_i/100).to_s %> </p>
+  <p> The cost of the gift you have recieved is $<%= (@gift.cost).to_s %> </p>
 
   <% if @gift.profit_donation_percent %> 
     <p>  
-    <% @gift.profit_donation_percent.to_s %> percent of the amount you pay above the cost will be donated to a charity of your choice 
+    <%= @gift.profit_donation_percent.to_s %> percent of the amount you pay above the cost will be donated to a charity of your choice 
     </p>
   <% end %> 
 
@@ -21,7 +22,15 @@
 
 <% if @gift.purchase_price %>
 
+  <p> The purchase price of the gift you have recieved is $<%= (@gift.purchase_price.to_i/100).to_s %> </p>
+
 <% end %>
+
+<% if @gift.revenue_donation_percent %> 
+    <p>  
+    <%= @gift.revenue_donation_percent.to_s %> percent of the amount you pay above the purchase price will be donated to a charity of your choice 
+    </p>
+<% end %> 
 
 Choose who benefits at <a href="http://www.karmagrove.com/purchases/<%= @gift.id.to_s %>/donations/new"> from your donation </a>
 
