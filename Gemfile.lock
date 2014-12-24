@@ -69,6 +69,7 @@ GEM
       execjs
     coffee-script-source (1.7.0)
     commonjs (0.2.7)
+    country-select (1.1.1)
     devise (3.2.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -278,6 +279,7 @@ DEPENDENCIES
   bitly
   bootstrap-sass
   coffee-rails (~> 3.2.1)
+  country-select
   devise
   faraday (~> 0.8.6)
   font-awesome-less

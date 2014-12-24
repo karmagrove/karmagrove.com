@@ -18,9 +18,8 @@
     <%= image_tag(@product.image_url,{:alt => @product.name}) %>
 
   <% end %>
-  <h4> You are purchasing the audio of <%= @product.name %> </h4>
-  <h4> We will deliver to your email below. </h4>
-  <h4> After payment you may choose a charity. </h4>
+
+  <h4> You are giving money for <%= @product.name %> </h4>  
 
   <%= f.hidden_field :buyer_id %>
   <%= f.hidden_field :id %>
@@ -36,7 +35,7 @@
   <%end %>
  <div class="field">
       <%= label_tag :price, "Amount charged to your card " %>
-      <%= text_field_tag :price, "10.00", name: "price" %>
+      <%= text_field_tag :price,  @purchase.purchase_price.to_s , name: "price" %>
   </div>
    <div class="field">
       <%= label_tag :cc_name, "Name on Card " %>
@@ -71,6 +70,6 @@
   </div>
   <div class="actions"><%= f.submit "Purchase" , :id => "purchaseButton" %></div>
   <a href='https://www.expeditedssl.com/simple-ssl-scanner/scan?target_domain=www.karmagrove.com' target='_blank' alt='Expedited SSL Scanner'><img src='https://www.expeditedssl.com/ssl-secure-badge.png'></a>
-  <h3> You may have the teaching of buddha on <a href="https://s3.amazonaws.com/karmagrove/BUDDHA.PDF"> pdf for free </a></h3>
+  <h3> <a href="https://s3.amazonaws.com/karmagrove/BUDDHA.PDF"> You may have the teaching of buddha on pdf for free </a></h3>
 
 <% end %>

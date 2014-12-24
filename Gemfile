@@ -83,6 +83,9 @@ gem 'workflow'
 #gem "nifty-generators", :group => :development
 
 
+#https://github.com/jamesds/country-select
+gem 'country-select'
+
 # gem 'spree_stripe', :git=>"git://github.com/adiastyle/spree-stripe.git"
 
 #gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
