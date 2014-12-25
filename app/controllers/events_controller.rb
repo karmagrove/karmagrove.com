@@ -23,10 +23,12 @@ class EventsController < InheritedResources::Base
        @buyer = User.find_or_create_by_email(params['email'])
    
        Rails.logger.info("buyer: purchase:  #{@buyer}")
-       @event = Product.find(params[:product][:id])
+       if params["product"] and params["product"]["id"]
+         @event = KarmicEvent.find(params["product"]["id"])
+         Rails.logger.info("@event: #{@event.inspect}")
+       end
        @purchase = Purchase.new(:buyer_id => @buyer.id, :product_id => params[:product][:id])
        @purchase.save
-       @ticket_url = "http://www.karmagrove.com/purchases/#{@purchase.id}.svg"
        Rails.logger.info("purchase #{@purchase}")
        if @purchase.save_with_balanced_payment({:purchase_id => @purchase.id, card_url: params[:balancedCreditCardURI], :price => params[:price]})
          # @windows_buddha_links = ["https://s3.amazonaws.com/karmagrove/tob-zips-1-17.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-18-34.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-35-49.sitx"]

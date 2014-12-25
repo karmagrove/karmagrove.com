@@ -91,8 +91,9 @@ class Notifier < ActionMailer::Base
       @user = params[:recipient]
       @event = params[:event]
       @gift = params[:gift]
+      @ticket_url = "http://www.karmagrove.com/purchases/#{@gift.id}.svg"
       @charity_ids = @event.product_charities.limit 3
-      Rails.logger.info("@charity_ids.inspect: #{@charity_ids.inspect}")      
+      Rails.logger.info("@charity_ids.inspect: #{@charity_ids.inspect}: @ticket_url #{@ticket_url}")      
       @charity_ids.map! {|pc| pc.charity_id }
       @charities = Charity.where(:id => @charity_ids.to_a)
       Rails.logger.info(@charities.inspect)
