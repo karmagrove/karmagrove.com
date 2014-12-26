@@ -130,6 +130,16 @@ end
        end
     end
     # session['callback_code'] = @code
+    if @purchase.purchase_price
+      @purchase_price = (@purchase.purchase_price/100).to_s
+      
+    else
+      @purchase_price = 10.00
+    end
+    if @purchase.payment_href
+      @need_payment = false
+    end
+    
     if @purchase.donation_id
       respond_to do |format|
         format.html
@@ -161,20 +171,15 @@ end
     begin
      if @purchase.save_with_balanced_payment({:purchase_id => @purchase.id, card_url: params[:balancedCreditCardURI], :price => params[:price]})
        redirect_to "/purchases/#{@purchase.id}/donations/new"
+     else
+      render :new
      end
 
     rescue Exception => e
       # The card has been declined
       Rails.logger.info "error: #{e.message}"
     end
-  
-    # @purchase.stripe_customer_token = charge.id
-  
-    if @purchase.save_with_payment
-      redirect_to [@product, @purchase], :url => {:action => "index"}, :notice => "Thank you for purchasing!"
-    else
-      render :new
-    end
-end
+
+  end
 
 end

@@ -35,7 +35,7 @@
   <%end %>
  <div class="field">
       <%= label_tag :price, "Amount charged to your card " %>
-      <%= text_field_tag :price,  (@purchase.purchase_price/100).to_s , name: "price" %>
+      <%= text_field_tag :price,  @purchase_price , name: "price" %>
   </div>
    <div class="field">
       <%= label_tag :cc_name, "Name on Card " %>
