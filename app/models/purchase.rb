@@ -63,9 +63,14 @@ class Purchase < ActiveRecord::Base
       @purchase_id = params[:purchase_id]      
       card_url = params[:card_url]
       card = Balanced::Card.fetch(card_url)
+
       price = params[:price].to_i * 100
-      card.debit(:amount => price)
-      Rails.logger.info("save with balaned")
+      response = card.debit(:amount => price)
+      Rails.logger.info("payment_response: #{response}")
+      self.purchase_price = price
+      self.stripe_transaction_id = response.attributes['id']
+      self.save
+      Rails.logger.info("save with balaned: #{card.inspect}")
     rescue Exception => e
       Rails.logger.info("save with balaned Exception #{e.inspect}")
     end

@@ -64,11 +64,11 @@ Would you like to connect facebook and gain access to your transaction history, 
   <%= link_to "Sign in with Facebook", "/auth/facebook/login?donation_id=#{params[:purchase_id]}", id: "sign_in" %>
 <% end %>
 
-<% if @need_payment %>
-<h2> Didn't pay? </h2>
-
-<%= render :partial => "purchases/balanced_payment" %>
-
-</div>
-
+<% if @need_payment  %>
+  <h2> Didn't pay? </h2>
+  
+  <%= render :partial => "purchases/balanced_payment" %>
+  
+  </div>
+  
 <% end %>

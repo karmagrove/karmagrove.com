@@ -85,6 +85,7 @@ end
 
       if @purchase.save_with_balanced_payment({:purchase_id => @purchase.id, card_url: params[:balancedCreditCardURI], :price => params[:price]})
         @need_payment = false
+        Rails.logger.info("succcesfful purchase - need_payment is false")
         #@purchase
       end  
     end
@@ -109,6 +110,10 @@ end
 
       Donation.where(:purchase_id => @purchase.id).each do |donation|
         @donation = donation
+        # if a batch charity payment exists, there shall be no more voting on past events. 
+        unless @donation.donation_date and @donation.amount
+          @donation.charity_id = @charity.id
+        end
       end
 
       @donation ||= Donation.create(:charity_id => @charity.id,:purchase_id => @purchase.id)

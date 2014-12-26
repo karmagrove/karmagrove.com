@@ -33,6 +33,8 @@ class BatchCharityPayment < ActiveRecord::Base
     @batches = BatchCharityPayment.open_batches
     @batches.each do |batch|
       batch.calculate_charities_owed
+      ## if a batch charity payment exists, there shall be no more voting on past events. 
+      ## mark each purchase and donation with a donation date and an amount.  
     end
 
     return "success"
