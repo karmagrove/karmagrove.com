@@ -11,8 +11,8 @@ jQuery(function($) {
     // Prevent the form from submitting with the default action
 
     
-    // balanced.init('/v1/marketplaces/TEST-MP3hv19s9WbPESuP8W2kKoqu/transactions');
-    balanced.init('/v1/marketplaces/MP2zvxosS3lVYf0xYghItBbO/transactions');
+    balanced.init('/v1/marketplaces/TEST-MP3hv19s9WbPESuP8W2kKoqu/transactions');
+    // balanced.init('/v1/marketplaces/MP2zvxosS3lVYf0xYghItBbO/transactions');
     var $form = $('.edit_purchase');
     // var creditCardData = {
     //     card_number: 

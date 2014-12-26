@@ -39,7 +39,7 @@ class Notifier < ActionMailer::Base
       Rails.logger.info(@modifier_url)
       mail(
         to: @user.email,
-        subject: 'Thank you for your purchase at the grove',
+        subject: 'Thank you for your purchase at Karma Grove',
         template_path: 'buddhas',
         template_name: 'purchase_email'
       )

@@ -48,7 +48,20 @@ class SessionsController < ApplicationController
       if params[:state]
         @purchase = Purchase.find params[:state]
         Rails.logger.info " @profile['id'] #{@profile['id']}"
-        @user = User.find_or_create_by_facebook_id @profile['id']
+        # 
+        # 
+
+        @state = params[:state]
+        if Purchase.exists? @state.to_i
+          @purchase = Purchase.find(@state.to_i)
+          @user = User.find(@purchase.buyer_id)
+          @user.facebook_id = @profile['id']
+        else
+          @user = User.find_or_create_by_facebook_id @profile['id']
+        end    
+        
+        # 
+        #  made it through the if statement! ActiveRecord::RecordInvalid (Validation failed: Email has already been taken):
         @purchase.buyer_id = @user.id
         @purchase.save
         @product = Product.find @purchase.product_id
