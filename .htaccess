@@ -1,4 +1,5 @@
 RewriteEngine On
 RewriteCond %{SERVER_PORT} !=443
+RewriteCond %{HTTP:X-Forwarded-Proto} !https 
 RewriteCond %{HTTP_HOST} ^(www\.)?karmagrove\.com$ [NC]
 RewriteRule ^$ https://www.karmagrove.com/%{REQUEST_URI} [R,L]
