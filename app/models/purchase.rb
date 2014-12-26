@@ -68,7 +68,9 @@ class Purchase < ActiveRecord::Base
       response = card.debit(:amount => price)
       Rails.logger.info("payment_response: #{response}")
       self.purchase_price = price
+      # this is actually a balanced id.. whatever.. 
       self.stripe_transaction_id = response.attributes['id']
+      self.payment_href=response.attributes['href']
       self.save
       Rails.logger.info("save with balaned: #{card.inspect}")
     rescue Exception => e

@@ -46,7 +46,7 @@ end
 # GET /products/new.json
   def new
     if params[:product_id].to_i.is_a? Integer
-      puts "awesome!"
+      Rails.logger.info("in purchases#new")
       @product = Product.find(params[:product_id])
     else
       # remove %20 and - and replace with space
@@ -100,6 +100,7 @@ end
       @donation_id = params[:donation][:id]
       @charity_id = Donation.find(@donation_id).charity_id
     end
+    
     if params[:donation_id]
        Rails.logger.info "found donation id #{params[:donation_id]}"
        @charity_id = params[:donation_id]

@@ -20,6 +20,9 @@ class DonationsController < ApplicationController
       @purchase = Purchase.create(:product_id => @product_id)
       @disable_nav = true
       @disable_sidebar = true
+      if @batch.batch_charity_payments and @batch.batch_charity_payments.first.charity_payment_id
+          @charity_payment = CharityPayment.find(@batch.batch_charity_payments.first.charity_payment_id)
+      end
     elsif params[:purchase_id]  # this is maybe a lil smelly - allow batches to override product preferences for charitys?
       @gift = Gift.find params[:purchase_id]
       # @product = @purchase.product

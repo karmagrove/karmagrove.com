@@ -1,0 +1,12 @@
+<h1> The voting for this batch has been closed.  </h1>
+<% if @batch.sales.to_i > 0 %>
+<h2> The total sales were $<%= @batch.sales %> </h2>
+<% end %> 
+
+<% if @charity_payment and @charity_payment.amount %>
+	The amount paid to charity was $<%= @charity_payment.amount/100 %>	
+	<% if @charity_payment.payment_image_url %>
+		<%= image_tag(@charity_payment.payment_image_url) %>
+	<% end %> 
+<% end %> 
+

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141220214722) do
+ActiveRecord::Schema.define(:version => 20141226025416) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -112,9 +112,12 @@ ActiveRecord::Schema.define(:version => 20141220214722) do
   create_table "batches", :force => true do |t|
     t.string   "batch_name"
     t.float    "sales"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
     t.string   "state"
+    t.integer  "cost"
+    t.integer  "profit_donation_percent"
+    t.integer  "revenue_donation_percent"
   end
 
   create_table "bids", :force => true do |t|
@@ -257,6 +260,7 @@ ActiveRecord::Schema.define(:version => 20141220214722) do
     t.float    "cost"
     t.integer  "revenue_donation_percent"
     t.integer  "profit_donation_percent"
+    t.string   "payment_href"
   end
 
   add_index "purchases", ["buyer_id"], :name => "index_purchases_on_buyer_id"
@@ -291,6 +295,7 @@ ActiveRecord::Schema.define(:version => 20141220214722) do
     t.string   "name"
     t.integer  "facebook_id"
     t.boolean  "email_subscriber"
+    t.string   "balanced_href"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
