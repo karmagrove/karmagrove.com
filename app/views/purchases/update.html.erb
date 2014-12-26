@@ -1,5 +1,7 @@
 <h1 style="text-align:center"> Thanks for donating! </h1>
+
 <% if @purchase.product.name == "Teaching of Buddha" %>
+   <div class="fb-share-button" data-href="http://www.karmagrove.com/buddha" data-type="button_count"></div>
 <h3>
 You just gave $2.00 to <%= @charity.legal_name %> for purchasing the teaching of buddha<%if @price%> for $<%= @price %><%end%>.
 <%= link_to " Connect your facebook", "/auth/facebook/login?donation_id=#{params[:purchase_id]}", id: "sign_in" %>
@@ -27,6 +29,7 @@ Would you like to connect facebook and gain access to your transaction history, 
 </p>
 
 <% else %>
+   <div class="fb-share-button" data-href="http://www.karmagrove.com" data-type="button_count"></div>
 <h3>
  You just gave one equally weighted vote to <%= @charity.legal_name %><%if @price%> for your gift of $<%= @price %><%end%> for <%= @product.name%>.   
 <% if @purchase.cost and @purchase.profit_donation_percent.to_i > 0 %>

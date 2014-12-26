@@ -33,7 +33,10 @@ class Notifier < ActionMailer::Base
       #   format.text
       #   format.html 
       # end
-
+      Rails.logger.info("@purchase.inspect: #{@purchase.inspect}")
+      # purchases/<%=@gift.id%>/donations/new
+      @modifier_url = "http://www.karmagrove.com/purchases/#{@purchase.id}/donations/new"
+      Rails.logger.info(@modifier_url)
       mail(
         to: @user.email,
         subject: 'Thank you for your purchase at the grove',

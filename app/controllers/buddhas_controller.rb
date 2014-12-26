@@ -1,6 +1,7 @@
 class BuddhasController < InheritedResources::Base
 
   def dharmaya
+    @disable_sidebar = true
     if Product.find_by_name "Teaching of Buddha" == nil 
        @product = Product.create!(:name => "Teaching of Buddha", :image_url => "/assets/buddha_green.jpg", :price => 500 ) 
     else
@@ -24,7 +25,6 @@ class BuddhasController < InheritedResources::Base
     Rails.logger.info("params #{params.inspect}")
     # redirect_to "/purchases/#{@purchase.id}/donations/new"
     @buyer = User.find_or_create_by_email(params[:email])
-
     Rails.logger.info("buyer #{@buyer}")
     @purchase = Purchase.new(:buyer_id => @buyer.id, :product_id => params[:product][:id])
     @purchase.save
