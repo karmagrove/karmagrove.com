@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_or_create_by_email(email)
+    email = email.strip
     if User.exists?(:email => email)
       user = User.where(:email => email).first
     else
