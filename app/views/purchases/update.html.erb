@@ -40,7 +40,7 @@ Would you like to connect facebook and gain access to your transaction history, 
 <h3>
 
 <% if @donation_amount>0 %>
- You chose to give $<%=@donation_amount%> to <%= @charity.legal_name %>.  You may update who receives your donation until we actually pay the charity on the first of the month.  View your profile and see past donations by signing in with facebook. <!-- <a href="/how-it-works"> How our donations work. </a> -->
+ You choose to give $<%=@donation_amount%> to <%= @charity.legal_name %>.  You may update who receives your donation until we actually pay the charity on the first of the month.  View your profile and see past donations by signing in with facebook. <!-- <a href="/how-it-works"> How our donations work. </a> -->
 <% else %> 
  You just gave one equally weighted vote to <%= @charity.legal_name %><%if @price%> for your gift of $<%= @price %><%end%> for <%= @product.name%>.   
 
