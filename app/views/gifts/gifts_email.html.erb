@@ -23,7 +23,14 @@
 <% if @gift.purchase_price %>
 
   <p> The purchase price of the gift you have recieved is $<%= (@gift.purchase_price.to_i/100).to_s %> </p>
-
+  <% if @gift.paid == true %> 
+    This gift of <%= @gift.product.name %> has already been paid by you.  Thank you. 
+      <% if @gift.paid_description.length > 3 %>  
+        description of payment: <%= @gift.paid_description %>
+      <% end %>
+    <% else %>
+    This gift has not been associated with any money gifts to Karma Grove.  
+  <% end %>
 <% end %>
 
 <% if @gift.revenue_donation_percent %> 

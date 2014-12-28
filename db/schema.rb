@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141226025416) do
+ActiveRecord::Schema.define(:version => 20141228221302) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -261,6 +261,8 @@ ActiveRecord::Schema.define(:version => 20141226025416) do
     t.integer  "revenue_donation_percent"
     t.integer  "profit_donation_percent"
     t.string   "payment_href"
+    t.boolean  "paid"
+    t.text     "paid_description"
   end
 
   add_index "purchases", ["buyer_id"], :name => "index_purchases_on_buyer_id"

@@ -116,7 +116,10 @@ end
           @donation.charity_id = @charity.id
         end
       end
-
+      @donation_amount = 0
+      if @purchase.purchase_price and @purchase.revenue_donation_percent
+        @donation_amount = @purchase.purchase_price/100)*(@purchase.revenue_donation_percent/100.to_f
+      end  
       @donation ||= Donation.create(:charity_id => @charity.id,:purchase_id => @purchase.id)
       @donation.save
       @purchase.donation_id = @donation.id

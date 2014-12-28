@@ -70,7 +70,16 @@ ActiveAdmin.register Gift do |this_gift|
             Rails.logger.info "@gift[:cost] #{@gift[:cost]}   "
             @purchase.cost = @gift[:cost]    
         end
+
+        if @gift[:paid]
+          Rails.logger.info("paid #{@gift[:paid]}")
+          @purchase.paid = true
+        end
         
+        if @gift[:paid_description].length > 3
+          Rails.logger.info("paid_description #{@gift[:paid_description]}")
+          @purchase.paid_description = @gift[:paid_description]
+        end
 
         if @gift[:revenue_donation_percent]
             @purchase.revenue_donation_percent = @gift[:revenue_donation_percent]
