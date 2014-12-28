@@ -2,6 +2,7 @@
 
 <h1> luminosa  </h1>
 <h2> Sacred arts dance and music festival </h2>
+<h3> 1 % of your purchase price ($2.22) goes to a charity of your choice </h3>
 <h3>  THIS PAGE IS FOR TESTING AND THE PURCHASE WILL NOT ACTUALLY GIVE YOU A TICKET RIGHT NOW </h3>
 
 
@@ -74,8 +75,12 @@
     <%= text_field_tag :email, nil, name: "email" %>
     <% end %>
   <% end %>
- 
-  
+
+  <div class="field">
+    <%= label_tag :coupon_code, "coupon code " %>
+    <%= text_field_tag :coupon_code, nil, name: "coupon code" %>
+  </div>    
+    
   <div class="actions"><%= f.submit "Purchase" , :id => "purchaseButton" %></div>
   <a href='https://www.expeditedssl.com/simple-ssl-scanner/scan?target_domain=www.karmagrove.com' target='_blank' alt='Expedited SSL Scanner'><img src='https://www.expeditedssl.com/ssl-secure-badge.png'></a>
   
