@@ -208,6 +208,8 @@ ActiveAdmin.register Gift do |this_gift|
         f.input :product_description #do |purchase| purchase.product.description end
         f.input :revenue_donation_percent
         f.input :profit_donation_percent
+        f.input :paid
+        f.input :paid_description
    		  
         @receivers = User.all
         f.input :users, :as => :check_boxes, :selected => @receivers, :multiple => false,  :collection => @receivers.map {| p| [p.email, p.id] }

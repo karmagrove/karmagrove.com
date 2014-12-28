@@ -8,7 +8,7 @@
 
 <% end %>
 
-<% if @gift.cost %>
+<% if @gift.cost.to_i > 0 %>
 
   <p> The cost of the gift you have recieved is $<%= @gift.cost.to_s %> </p>
 

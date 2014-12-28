@@ -54,8 +54,11 @@ class SessionsController < ApplicationController
         @state = params[:state]
         if Purchase.exists? @state.to_i
           @purchase = Purchase.find(@state.to_i)
-          @user = User.find(@purchase.buyer_id)
-          @user.facebook_id = @profile['id']
+          if @purchase.buyer_id
+            Rails.logger.info("this purchase has a buyer_id of #{@purchase.buyer_id}")
+            @user = User.find(@purchase.buyer_id)
+            @user.facebook_id = @profile['id']
+          end
         else
           @user = User.find_or_create_by_facebook_id @profile['id']
         end    
