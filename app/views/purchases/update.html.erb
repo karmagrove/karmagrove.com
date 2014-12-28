@@ -23,7 +23,14 @@ The following are the audio files in zip format.   <br />
 <a href="https://s3.amazonaws.com/karmagrove/Archive2.zip"> Buddha part 2 </a> <br />
 <a href="https://s3.amazonaws.com/karmagrove/Archive3.zip"> Buddha part 3 </a> <br />
 
+<%= if @purchase.buyer %>
 You have also been sent an email to <%= @purchase.buyer.email %>
+
+<% else %>
+
+This purchase has no identifiable buyer.  Why?  
+
+<% end %>
 
 Would you like to connect facebook and gain access to your transaction history, the marketplace, and easier transactions? <br /> We won't harass you or post anything to your wall EVER.
 </p>
