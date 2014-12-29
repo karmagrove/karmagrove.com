@@ -13,6 +13,5 @@ describe User do
   it "should find total donations for a user" do
   	u = User.create! :email => "foo@f.com", :password => "oasdafasdfa ", :email_subscriber => true
     u.total_donations.should == 0
-
   end
 end
