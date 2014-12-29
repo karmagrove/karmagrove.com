@@ -58,5 +58,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  def total_donations
+    amount = 0
+    Purchase.where(:buyer_id => self.id).each do |purchase|
+      if @donation = Donation.where(:purchase_id => purchase.id).first
+        amount += @donation.amount.to_f
+      end
+    end
+    return amount
+  end
+
 
 end

@@ -22,6 +22,13 @@
 
 <h2> <%= link_to "Buy some Karma Coins??", "/products?name=Karma Coin" %>   </h2>
 
+<h1> <b> Profile Features </b> </h1>
+
+<% if @user %>
+	<h2> <%= link_to "Your past purchases and donations", "/purchases/user/#{@user.id}" %> </h2> 
+	<h3> Total Amount Given from your interactions in karma grove: <soon> </h3>
+<% end %>
+
 <h1> <b> Coming soon </b> </h1>
 
 <h2> Sell an item in your local marketplace?  </h2>
@@ -29,8 +36,3 @@
 <h2> Browse the market </h2>
 
 <h2> Karma Grove donation record </h2>
-
-<% if @user %>
-	<%= link_to "Your past purchases", "/purchases/user/#{@user.id}" %>
-
-<% end %>
