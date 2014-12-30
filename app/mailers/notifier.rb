@@ -55,6 +55,11 @@ class Notifier < ActionMailer::Base
     begin
       @user = params[:recipient]
       @gift = params[:gift]
+
+      if @gift.purchase_price and @gift.revenue_donation_percent
+        @donation_amount = (@gift.purchase_price/100)*(@gift.revenue_donation_percent/100.to_f).to_f
+        @donation_amount =sprintf "%.2f" @donation_amount
+      end
       @charity_ids = @gift.product.product_charities.limit 3
       Rails.logger.info("@charity_ids.inspect: #{@charity_ids.inspect}")      
       @charity_ids.map! {|pc| pc.charity_id }

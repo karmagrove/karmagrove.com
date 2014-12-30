@@ -35,7 +35,7 @@
 
 <% if @gift.revenue_donation_percent %> 
     <p>  
-    <%= @gift.revenue_donation_percent.to_s %> percent of the amount you pay of the purchase price will be donated to a charity of your choice.  This means you have rights to give $<%= sprintf "%.2f" (@gift.purchase_price/100)*(@gift.revenue_donation_percent/100.to_f) %> 
+    <%= @gift.revenue_donation_percent.to_s %> percent of the amount you pay of the purchase price will be donated to a charity of your choice.  This means you have rights to give $<%= @donation_amount %> 
     </p>
 <% end %> 
 
