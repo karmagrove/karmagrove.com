@@ -55,7 +55,18 @@ class BatchesController < InheritedResources::Base
       #   format.html { redirect_to "/admin/batches/#{@batch_id}/edit", notice: 'Product was successfully updated.' }
       #   format.json { head :no_content }
       # end
-
+    elsif params[:batch_id] and params[:_method] == "delete"
+      if Batch.exists?(params[:batch_id]) 
+      @batch = Batch.find(params[:batch_id]).destroy
+      @notice = "Product was successfully destroyed."
+      else
+      @notice = "No product with id #{params[:batch_id]}... you already destroyed it in the past :) "
+      end
+      Rails.logger.info(@notice)
+      respond_to do |format|
+        format.html { redirect_to "/admin/batches/", notice: @notice }
+        format.json { head :no_content }
+      end 
     else   
        @batch_id = params[:batch_id]
        @batch = Batch.find(@batch_id)
