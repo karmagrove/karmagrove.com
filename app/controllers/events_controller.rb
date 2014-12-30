@@ -2,6 +2,9 @@ class EventsController < InheritedResources::Base
 
 
 	def luminosa
+    authenticate_or_request_with_http_basic('Administration') do |username, password|
+      username == 'luminosa' && password == 'light'
+    
 		if Product.find_by_name "Luminosa" == nil 
        @product = Product.create!(:name => "Luminosa", :image_url => "/assets/monica.jpg", :price => 22200 ) 
     else
@@ -14,6 +17,8 @@ class EventsController < InheritedResources::Base
           format.html # luminosa.html.erb
           format.json { render json: @product }
          end
+
+     end
 	end
 
 
