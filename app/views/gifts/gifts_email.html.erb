@@ -8,6 +8,10 @@
 
 <% end %>
 
+<% if @gift.product.image_url and @gift.product.image_url.length > 3 %>
+<img src="https://www.karmagrove.com/assets/<%=@gift.product.image_url%>"
+<% end %>
+
 <% if @gift.cost.to_i > 0 %>
 
   <p> The cost of the gift you have recieved is $<%= @gift.cost.to_s %> </p>
