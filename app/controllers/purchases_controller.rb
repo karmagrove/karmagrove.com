@@ -119,6 +119,7 @@ end
       @donation_amount = 0
       if @purchase.purchase_price and @purchase.revenue_donation_percent
         @donation_amount = (@purchase.purchase_price/100)*(@purchase.revenue_donation_percent/100.to_f)
+        @donation_amount = sprintf "%.2f", @donation_amount
       end  
       @donation ||= Donation.create(:charity_id => @charity.id,:purchase_id => @purchase.id )
       @donation.amount = @donation_amount
