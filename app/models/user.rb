@@ -65,7 +65,8 @@ class User < ActiveRecord::Base
         amount += @donation.amount.to_f
       end
     end
-    return amount
+    a = sprintf "%.2f", amount
+    return  a
   end
 
 
