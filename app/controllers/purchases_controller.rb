@@ -85,6 +85,8 @@ end
 
       if @purchase.save_with_balanced_payment({:purchase_id => @purchase.id, card_url: params[:balancedCreditCardURI], :price => params[:price]})
         @need_payment = false
+        @purchase.paid = true
+        @purchase.save
         Rails.logger.info("succcesfful purchase - need_payment is false")
         #@purchase
       end  
