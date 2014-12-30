@@ -15,28 +15,28 @@ ActiveAdmin.register ProductCharity do
   end
 
 
-  index do
+  # index do
 
-     # column :product #{|product| product.name}
-     # column :product_description  do |purchase| 
-     #  if purchase.product
-     #    purchase.product.description
-     #  else
-     #    ""
-     #  end
-     # end
+  #    # column :product #{|product| product.name}
+  #    # column :product_description  do |purchase| 
+  #    #  if purchase.product
+  #    #    purchase.product.description
+  #    #  else
+  #    #    ""
+  #    #  end
+  #    # end
 
-     # column :donation
-     # column :purchase_price
-     # column :cost
-     column :product do |pc| pc.product.name end
-     column :charity do |pc| pc.charity.legal_name end
-     # column :buyer
-     # column :seller
+  #    # column :donation
+  #    # column :purchase_price
+  #    # column :cost
+  #    column :product do |pc| pc.product.name end
+  #    column :charity do |pc| pc.charity.legal_name end
+  #    # column :buyer
+  #    # column :seller
 
 
-     default_actions
-  end	
+  #    default_actions
+  # end	
 
 
 end
