@@ -61,7 +61,7 @@ You have the right to give <%=@purchase.profit_donation_percent %>% of any amoun
 
  <% end %> 
 <% if @purchase.cost and @purchase.profit_donation_percent.to_i > 0 and @purchase.paid == false %>
-  Anything you choose to pay over $<%= @purchase.cost %>, we will donate <%=@purchase.profit_donation_percent%>% where you choose.
+  Anything you choose to pay over $<%= @purchase.cost %>, we will donate <%=@purchase.profit_donation_percent%>% where you choose.  Please fill out the credit card form below. 
 <% elsif @purchase.paid != true %>
 
 <!--  The exact amount of the donation will be updated at the end of the month when costs are known and the total money collected for your purchase or event attended is certain.  
@@ -80,6 +80,14 @@ You have the right to give <%=@purchase.profit_donation_percent %>% of any amoun
 </h3> -->
 
 <% end %>
+
+<% if @purchase.paid != true  %>
+  <h2> Didn't pay? </h2>
+  
+  <%= render :partial => "purchases/balanced_payment" %>
+  
+<% end %>
+
 
 <div class="row">
 <div class="col-md-8">
@@ -101,10 +109,3 @@ You have the right to give <%=@purchase.profit_donation_percent %>% of any amoun
 </div>
 
 </div>
-
-<% if @purchase.paid != true  %>
-  <h2> Didn't pay? </h2>
-  
-  <%= render :partial => "purchases/balanced_payment" %>
-  
-<% end %>
