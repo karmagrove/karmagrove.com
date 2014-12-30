@@ -68,6 +68,7 @@ end
     end
   end
 
+  ## TODO : CLEAN THIS UP
   def update
     @need_payment = true
     if params[:purchase_id]
@@ -97,7 +98,7 @@ end
     @disable_sidebar = true
     
     @product = Product.find(@purchase.product_id)
-    @donation_id =
+    # @donation_id =
     if params[:donation] and params[:donation][:id].to_i.class == Fixnum
       @donation_id = params[:donation][:id]
       @charity_id = Donation.find(@donation_id).charity_id
@@ -110,25 +111,38 @@ end
 
     if @charity_id
       @charity = Charity.find(@charity_id)
-
+     Rails.logger.info "found charity_id #{@charity_id}"
       Donation.where(:purchase_id => @purchase.id).each do |donation|
         @donation = donation
+        
         # if a batch charity payment exists, there shall be no more voting on past events. 
         unless @donation.donation_date and @donation.amount
-          @donation.charity_id = @charity.id
+          @donation.charity_id = @charity_id
         end
       end
-      @donation_amount = 0
-      if @purchase.purchase_price and @purchase.revenue_donation_percent
-        @donation_amount = (@purchase.purchase_price/100)*(@purchase.revenue_donation_percent/100.to_f)
-        @donation_amount = sprintf "%.2f", @donation_amount
-      end  
-      @donation ||= Donation.create(:charity_id => @charity.id,:purchase_id => @purchase.id )
-      @donation.amount = @donation_amount
-      @donation.save
+
+      @donation ||= Donation.create(:charity_id => @charity_id,:purchase_id => @purchase.id )
+      @purchase.create_donation(@donation)
       @purchase.donation_id = @donation.id
       @purchase.save
+
+      # @donation_amount = 0
+      # if @purchase.purchase_price and @purchase.revenue_donation_percent
+      #   @donation_amount = (@purchase.purchase_price/100)*(@purchase.revenue_donation_percent/100.to_f)
+      #   @donation_amount = sprintf "%.2f", @donation_amount
+      # end  
+
+      # @donation ||= Donation.create(:charity_id => @charity.id,:purchase_id => @purchase.id )
+
+      # @donation.amount = @donation_amount
+      @donation_amount = @donation.amount 
+      if @purchase.purchase_price and @purchase.purchase_price > 0 
+        @price = @purchase.purchase_price / 100
+      end
+      # @donation.save
+      
     end
+
     if @purchase.purchase_price == nil
        if @purchase.cost != nil 
           @purchase.purchase_price = @purchase.cost * 1.8

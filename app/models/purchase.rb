@@ -67,18 +67,51 @@ class Purchase < ActiveRecord::Base
 
       price = params[:price].to_i * 100
       response = card.debit(:amount => price)
-      Rails.logger.info("payment_response: #{response}")
+      Rails.logger.info("payment_response: #{response} : for price #{price}")
       self.purchase_price = price
       # this is actually a balanced id.. whatever.. 
       self.stripe_transaction_id = response.attributes['id']
       self.payment_href=response.attributes['href']
       self.save
+    
       Rails.logger.info("save with balaned: #{card.inspect}")
     rescue Exception => e
       Rails.logger.info("save with balaned Exception #{e.inspect}")
     end
   end
 
+  def create_donation(donation)
+    @donation = donation
+      # Donation.where(:purchase_id => @purchase.id).each do |donation|
+      #   @donation = donation
+      #   # if a batch charity payment exists, there shall be no more voting on past events. 
+      #   unless @donation.donation_date and @donation.amount
+      #     @donation.charity_id = charity_id
+      #   end
+      # end
+      
+      # if @donation
+      #   unless @donation.donation_date and @donation.amount
+      #     @donation.charity_id = charity_id
+      #   end
+      # end
+
+      if self.profit_donation_percent and self.cost and self.purchase_price and @donation
+        Rails.logger.info( "saving a payment for something that was unpaid with a cost and price and profit_donation_percent")
+        Rails.logger.info( "self.profit_donation_percent and self.cost and self.purchase_price and @donation  : #{self.profit_donation_percent} and #{self.cost} and #{self.purchase_price} and #{@donation} ")
+        amount = ((self.purchase_price/100 - self.cost) * self.profit_donation_percent / 100)
+        Rails.logger.info( "amount : #{amount}")
+        @donation.amount = sprintf "%.2f", amount
+        @donation.save
+      end
+      if self.purchase_price and self.revenue_donation_percent and  self.revenue_donation_percent > 0 
+        Rails.logger.info( "saving a payment for revenue to purchase price and revenue donation percent")
+        amount = (self.purchase_price/100)*(self.revenue_donation_percent/100.to_f)
+        Rails.logger.info( "amount : #{amount}")
+        @donation.amount = sprintf "%.2f", amount
+        @donation.save
+      end  
+  end
 
 
   def save_with_payment(params={})

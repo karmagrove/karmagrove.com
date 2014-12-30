@@ -40,7 +40,22 @@ Would you like to connect facebook and gain access to your transaction history, 
 <h3>
 
 <% if @donation_amount.to_i>0 %>
- You choose to give $<%=@donation_amount%> to <%= @charity.legal_name %>.  You may update who receives your donation until we actually pay the charity on the first of the month.  View your profile and see past donations by signing in with facebook. <!-- <a href="/how-it-works"> How our donations work. </a> -->
+   <%if @price%> 
+     <% if @purchase.paid == true%>
+        You choose to give $<%=@donation_amount%> to <%= @charity.legal_name %>. 
+        You paid  $<%= @price %>
+     <% else %>
+        Will you give $<%=@donation_amount%> to <%= @charity.legal_name %>? 
+        This is the amount you will donate if you pay $<%= @price %> by filling out the credit card form below.
+     <%end%>
+   <%end%>
+ <% if @purchase.cost and @purchase.profit_donation_percent.to_i > 0 %>
+You have the right to give <%=@purchase.profit_donation_percent %>% of any amount paid over $<%= @purchase.cost %>.
+<% end %>
+ You <a href="/purchases/<%=@purchase.id%>/donations/new">may update who receives your donation</a> until we actually pay the charity on the first of the month.  View your profile and see past donations by signing in with facebook. <!-- <a href="/how-it-works"> How our donations work. </a> -->
+
+<% elsif %>
+
 <% else %> 
  You just gave one equally weighted vote to <%= @charity.legal_name %><%if @price%> for your gift of $<%= @price %><%end%> for <%= @product.name%>.   
 
@@ -48,26 +63,29 @@ Would you like to connect facebook and gain access to your transaction history, 
 <% if @purchase.cost and @purchase.profit_donation_percent.to_i > 0 and @purchase.paid == false %>
   Anything you choose to pay over $<%= @purchase.cost %>, we will donate <%=@purchase.profit_donation_percent%>% where you choose.
 <% elsif @purchase.paid != true %>
- The exact amount of the donation will be updated at the end of the month when costs are known and the total money collected for your purchase or event attended is certain.  
 
+<!--  The exact amount of the donation will be updated at the end of the month when costs are known and the total money collected for your purchase or event attended is certain.  
+ -->
  <% else %>
 
 <%end%> 
 </h3>
 
 
-<div class="col-md-8">
-     <%= render "about/email_subscription" %>
- </div>
+
 
 <!-- <h3>
   Would you like to update the amount?
   <input name="amount" type="text"> </input>
 </h3> -->
 
-
 <% end %>
 
+<div class="row">
+<div class="col-md-8">
+     <%= render "about/email_subscription" %>
+</div>
+<div class="col-md-4">
 <h3>
   Why not log in with facebook and watch your karma grow?
   <div id="user_nav">
@@ -79,6 +97,10 @@ Would you like to connect facebook and gain access to your transaction history, 
 <% else %>
   <%= link_to "Sign in with Facebook", "/auth/facebook/login?donation_id=#{params[:purchase_id]}", id: "sign_in" %>
 <% end %>
+
+</div>
+
+</div>
 
 <% if @purchase.paid != true  %>
   <h2> Didn't pay? </h2>

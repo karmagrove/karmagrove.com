@@ -71,15 +71,17 @@ ActiveAdmin.register Gift do |this_gift|
             @purchase.cost = @gift[:cost]    
         end
 
-        if @gift[:paid] = 1
+        if @gift[:paid] == 0
+          Rails.logger.info("paid #{@gift[:paid]}")
+          @purchase.paid = false
+        end
+
+        if @gift[:paid] == 1
           Rails.logger.info("paid #{@gift[:paid]}")
           @purchase.paid = true
         end
         
-        if @gift[:paid] = 0
-          Rails.logger.info("paid #{@gift[:paid]}")
-          @purchase.paid = false
-        end
+
 
         if @gift[:paid_description].length > 3
           Rails.logger.info("paid_description #{@gift[:paid_description]}")
