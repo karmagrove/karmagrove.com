@@ -3,6 +3,8 @@ Karma Grove
 
 This is [Karma Grove](http://www.karmagrove.com), an experiment in conscious commerce
 
+Giving is living
+
 Mission
 ===========
 
