@@ -56,7 +56,9 @@ class EventsController < InheritedResources::Base
 	end
 
   def show
-
+      if params[:name]
+        @event = Event.find_by_name(params[:name])
+      end
       respond_to do |format|
           format.html # show.html.erb
           format.json { render json: @product }

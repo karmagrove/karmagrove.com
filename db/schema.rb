@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141228221302) do
+ActiveRecord::Schema.define(:version => 20150101225155) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -186,6 +186,19 @@ ActiveRecord::Schema.define(:version => 20141228221302) do
 
   add_index "event_discounts", ["event_id"], :name => "index_event_discounts_on_event_id"
 
+  create_table "eventhosts", :force => true do |t|
+    t.integer  "event_id"
+    t.integer  "user_id"
+    t.boolean  "admin"
+    t.boolean  "creator"
+    t.text     "event_bio"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "eventhosts", ["event_id"], :name => "index_eventhosts_on_event_id"
+  add_index "eventhosts", ["user_id"], :name => "index_eventhosts_on_user_id"
+
   create_table "events", :force => true do |t|
     t.string   "name"
     t.text     "description"
@@ -298,6 +311,7 @@ ActiveRecord::Schema.define(:version => 20141228221302) do
     t.integer  "facebook_id"
     t.boolean  "email_subscriber"
     t.string   "balanced_href"
+    t.boolean  "member"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
