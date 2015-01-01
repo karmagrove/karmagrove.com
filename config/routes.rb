@@ -22,6 +22,7 @@ Karmagrove::Application.routes.draw do
 
   get '/circle', to:  'circles#index'
 
+  get '/events/:name', to: 'events#show'
   # match '/buddhas', to: 'buddhas#dharmaya'
 
   resources :markets
