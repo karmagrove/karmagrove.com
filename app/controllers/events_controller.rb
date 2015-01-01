@@ -56,15 +56,19 @@ class EventsController < InheritedResources::Base
 	end
 
   def show
-      if params[:name]
-        @event = Event.find_by_name(params[:name])
+      Rails.logger.info("params #{params.inspect}")
+      if params[:id]
+        @event = Event.find_by_name(params[:id])
+        if @event.nil?
+          @event = Event.find(params[:id])
+        end
       end
       respond_to do |format|
           format.html # show.html.erb
           format.json { render json: @product }
-         end
-     end
+      end
   end
+  
 
 
 end
