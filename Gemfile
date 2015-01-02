@@ -86,6 +86,10 @@ gem 'workflow'
 #https://github.com/jamesds/country-select
 gem 'country-select'
 
+# https://github.com/markevans/dragonfly issue 33
+gem 'rqrcode_png'
+gem 'dragonfly'
+
 # gem 'spree_stripe', :git=>"git://github.com/adiastyle/spree-stripe.git"
 
 #gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'

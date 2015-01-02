@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
   has_many :product_charities
-  
+  image_accessor :qr_code  
   attr_accessible :description, :name, :price, :id, :image_url
 
 
