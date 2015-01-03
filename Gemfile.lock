@@ -78,6 +78,10 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    dragonfly (1.0.7)
+      addressable (~> 2.3)
+      multi_json (~> 1.0)
+      rack
     erubis (2.7.0)
     execjs (2.0.2)
     faraday (0.8.9)
@@ -285,6 +289,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   country-select
   devise
+  dragonfly
   faraday (~> 0.8.6)
   font-awesome-less
   font-awesome-rails
