@@ -7,6 +7,11 @@
 <h4> Order the teaching of Buddha and choose where $2.00 of your purchase flow. </h4>
 
 
+
+
+
+
+
 <%= form_for @purchase, :url => { :controller => "buddhas", :action => "create", :route => "/products/#{@product.id}/purchases/new" } do |f| %>
   <% if @purchase.errors.any? %>
     <div class="error_messages">
@@ -21,12 +26,25 @@
 
 
   
+<div class="row">
 
   <% if @product and @product.image_url %>
-
+  <div class="col-lg-5  ">
+  <p>
+  <h2>Choose Your Charity</h2>
+    <% @charities.each do |charity| %>
+  
+   <h3> <%= charity.legal_name %> </h3> <%= charity.deductibility_status_description %> 
+  
+    <% end %>
+  </p>
+  </div>
+  <div class="col-lg-7">
     <%= image_tag(@product.image_url,{:alt => @product.name}) %>
-
+  </div>
   <% end %>
+
+</div>  
   <h4> You are purchasing the audio of <%= @product.name %> </h4>
   <h4> We will deliver to your email below. </h4>
   <h4> After payment you may choose a charity. </h4>

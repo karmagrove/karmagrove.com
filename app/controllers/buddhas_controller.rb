@@ -8,6 +8,9 @@ class BuddhasController < InheritedResources::Base
        @product = Product.find_by_name "Teaching of Buddha"
    end
     @purchase = Purchase.create!(:product_id => @product.id)
+    @product_charities = @product.product_charities.limit 3
+    @charity_ids = @product_charities.map {|product_charity| product_charity.charity_id }      
+    @charities = Charity.where(:id => @charity_ids)
     # @donation = @donation.create | donation occurs right away?
 
     respond_to do |format|
