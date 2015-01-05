@@ -45,7 +45,11 @@
   <%end %>
   <div class="field">
       <%= label_tag :price, "Amount charged to your card " %>
-      <%= text_field_tag :price, "222.00", name: "price" %>
+      <%= text_field_tag :price, "222.00", name: "price", :disabled => "true" %>
+  </div>
+  <div class="field">
+      <%= label_tag :number_of_tickets, "Amount charged to your card " %>
+      <%= text_field_tag :number_of_tickets, "1", name: "number of tickets", :disabled => "true" %>
   </div>
    <div class="field">
       <%= label_tag :cc_name, "Name on Card " %>
