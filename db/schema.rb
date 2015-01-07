@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150101225155) do
+ActiveRecord::Schema.define(:version => 20150107025948) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -213,6 +213,8 @@ ActiveRecord::Schema.define(:version => 20150101225155) do
     t.datetime "end_time"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.boolean  "published"
+    t.string   "url"
   end
 
   add_index "events", ["seller_id"], :name => "index_events_on_seller_id"
@@ -255,6 +257,7 @@ ActiveRecord::Schema.define(:version => 20150101225155) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "image_url"
+    t.integer  "quantity"
   end
 
   create_table "purchases", :force => true do |t|

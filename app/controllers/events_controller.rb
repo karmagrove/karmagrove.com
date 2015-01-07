@@ -12,7 +12,8 @@ class EventsController < InheritedResources::Base
    end
     @purchase = Purchase.create!(:product_id => @product.id)
 
-		 @disable_sidebar = true
+		@disable_sidebar = true
+    @disable_nav = true
 		respond_to do |format|
           format.html # luminosa.html.erb
           format.json { render json: @product }
@@ -62,11 +63,27 @@ class EventsController < InheritedResources::Base
         if @event.nil?
           @event = Event.find(params[:id])
         end
+        if @event.nil?
+          @event = Event.find_by_url(params[:id])
+        end
       end
+
       respond_to do |format|
           format.html # show.html.erb
           format.json { render json: @product }
       end
+  end
+
+
+  def create
+      current_user
+      Rails.logger.info("current_suser #{@current_user}")
+
+      respond_to do |format|
+          format.html # new.html.erb
+          format.json { render json: @product }
+      end
+
   end
   
 
