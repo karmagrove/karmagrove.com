@@ -55,6 +55,11 @@
     <%= f.label :end_time %><br />
     <%= f.datetime_select :end_time %>
   </div>
+    <div class="field">
+    <%= f.label :published %><br />
+    true <%= f.radio_button :published, "true"  %>
+    false <%= f.radio_button :published, "false"  %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

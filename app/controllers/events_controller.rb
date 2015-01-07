@@ -58,6 +58,9 @@ class EventsController < InheritedResources::Base
 
   def show
       Rails.logger.info("params #{params.inspect}")
+      if params[:show_unpublished] == "true"
+        @show_unpublished_event = true
+      end
       if params[:id]
         @event = Event.find_by_name(params[:id])
         if @event.nil?

@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-
+<% if @event.published or @show_unpublished_event%>
 <p>
   <b>Name:</b>
   <%= @event.name %>
@@ -55,6 +55,18 @@
   <%= @event.end_time %>
 </p>
 
+<p>
+  <b>published:</b>
+  <%= @event.published %>
+</p>
 
+<% else %>
+
+There is an event here but you cannot see it without the proper url.
+
+<% end %>
+
+<% if current_user and current_user == @event.creator %>
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
+<% end %>
