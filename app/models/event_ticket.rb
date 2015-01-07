@@ -1,3 +1,3 @@
-class EventTicket < Purchase
+class EventTicket < Product
   # attr_accessible :title, :body
 end
