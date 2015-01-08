@@ -26,7 +26,11 @@
   <a href="/batches/<%= Batch.last.id =%>/donations/new"><h4>Your Votes Decide Which Charities Benefit</h4>
   </a>
   <p>
-   90% of the profits made from each purchase in KarmaGrove.com's marketplace, or in person at a Karma Grove affiliated vendor, will be donated to charity. Of that 90%, 50% is donated to the charity of the buyer's choice, while the remaining 40% is donated to a charity decided upon with out voting system. The entire KarmaGrove community is free to <strong><a href="/batches/<%= Batch.last.id =%>/donations/new">vote on our website here</a>.</strong>
+   90% of the profits made from each purchase in KarmaGrove.com's marketplace, or in person at a Karma Grove affiliated vendor, will be donated to charity. Of that 90%, 50% is donated to the charity of the buyer's choice, while the remaining 40% is donated to a charity decided upon with out voting system. The entire KarmaGrove community is an example of a free society where you have rights to choose who benefits from your purhase beyond you and the seller.  For our karmic batches of granola, chocolate, or other treats, you  <strong><a href="/batches/<%= Batch.last.id =%>/donations/new">may vote for the most recent batches profit recipients here</a>.</strong>
+   <br />
+   <FORM METHOD="LINK" ACTION="/batches/<%= Batch.last.id =%>/donations/new">
+   <button type="submit" class="btn"><a href=""> Choose the most recent batch profit recipients here</a>.</button>
+   </FORM>
  </p>
 
 </div>
