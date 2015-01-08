@@ -69,6 +69,9 @@ class EventsController < InheritedResources::Base
         if @event.nil?
           @event = Event.find_by_url(params[:id])
         end
+        if @event.nil?
+          @event = Event.find_by_name(params[:id].split('-').join(' '))
+        end
       end
 
       respond_to do |format|
@@ -79,9 +82,22 @@ class EventsController < InheritedResources::Base
 
 
   def create
-      current_user
-      Rails.logger.info("current_suser #{@current_user}")
+        
+      respond_to do |format|
+          format.html # new.html.erb
+          format.json { render json: @product }
+      end
 
+  end
+
+  def new
+      @current_user = current_user
+      Rails.logger.info("current_suser #{@current_user.inspect}")
+      if @current_user == nil
+        redirect_to "/users/login"
+        return true
+      end
+      @event = Event.new
       respond_to do |format|
           format.html # new.html.erb
           format.json { render json: @product }

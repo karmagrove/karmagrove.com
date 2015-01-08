@@ -84,8 +84,13 @@ class SessionsController < ApplicationController
     # Rails.logger.info @oauth
     # # user = User.from_omniauth(env["omniauth.auth"])
     # Rails.logger.info user.inspect
-    # session[:user_id] = user.id
+    session[:user_id] = @user.id
     # redirect_to root_url
+  end
+
+  def new
+    super
+    session[:user_id] = @user.id
   end
 
   def login
