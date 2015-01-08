@@ -64,13 +64,13 @@ class EventsController < InheritedResources::Base
       if params[:id]
         @event = Event.find_by_name(params[:id])
         if @event.nil?
+          @event = Event.find_by_name(params[:id].split('-').join(' '))
+        end
+        if @event.nil?
           @event = Event.find(params[:id])
         end
         if @event.nil?
           @event = Event.find_by_url(params[:id])
-        end
-        if @event.nil?
-          @event = Event.find_by_name(params[:id].split('-').join(' '))
         end
       end
 
