@@ -77,6 +77,7 @@ class EventsController < InheritedResources::Base
       @event_charities = @event.event_charities
       @product = Product.find_by_reference_id(@event.id)
       @purchase = Purchase.new
+      @purchase_price = @event.price
       respond_to do |format|
           format.html # show.html.erb
           format.json { render json: @product }

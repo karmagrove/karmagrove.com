@@ -73,6 +73,8 @@ class Purchase < ActiveRecord::Base
       self.stripe_transaction_id = response.attributes['id']
       self.payment_href=response.attributes['href']
       self.save
+      self.paid = true
+
     
       Rails.logger.info("save with balaned: #{card.inspect}")
     rescue Exception => e

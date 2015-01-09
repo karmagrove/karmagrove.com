@@ -26,14 +26,23 @@ class EventCharitiesController < InheritedResources::Base
   # end
 
 
-  # def create
-        
-  #     respond_to do |format|
-  #         format.html # new.html.erb
-  #         format.json { render json: @product }
-  #     end
-
-  # end
+  def create
+      # unless @event
+      if @event_charity = EventCharity.create(params[:event_charity])
+        if @product = Product.find_by_reference_id(@event_charity.event_id)
+          ProductCharity.create(:product_id => @product.id, :charity_id => @event_charity.charity_id)
+          # @event_charity.charity_id
+          #@event_charity.event_id
+          # @product.product_charity_ids = 
+        end
+        redirect_to "/events/#{@event_charity.event_id}"
+      else
+        respond_to do |format|
+            format.html # new.html.erb
+            format.json { render json: @product }
+        end
+      end
+  end
 
   def new
       @current_user = current_user
@@ -44,7 +53,13 @@ class EventCharitiesController < InheritedResources::Base
       # end
       @event = Event.find(params[:event_id])
       @charities = Charity.all
-      @charities = @charities.map {|c| [c.legal_name,c.id] }
+      charities_already_selected = @event.event_charities.map {|e_charity| e_charity.charity_id }
+      @charities = @charities.map {|c| 
+        unless charities_already_selected.include?(c.id) 
+          [c.legal_name,c.id] 
+        end 
+      }
+      @charities.delete_if {|i| i == nil }
       # @eventticket = EventTicket.new
       @event_charity = EventCharity.new
       respond_to do |format|
