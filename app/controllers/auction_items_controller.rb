@@ -47,7 +47,7 @@ class AuctionItemsController < ApplicationController
     @auctionitems  = AuctionItem.new(params[:auctionItem])
 
     respond_to do |format|
-      if @auctionitems .save
+      if @auctionitems.save
         format.html { redirect_to @auctionitems , notice: 'auction_item was successfully created.' }
         format.json { render json: @auctionitems , status: :created, location: @auctionitems  }
       else

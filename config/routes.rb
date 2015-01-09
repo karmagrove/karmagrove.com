@@ -1,5 +1,8 @@
 Karmagrove::Application.routes.draw do
 
+  resources :event_charities
+
+
   resources :members
 
 
@@ -103,6 +106,7 @@ Karmagrove::Application.routes.draw do
 
   resources :events do
     resources :event_tickets
+    resources :event_charities
   end
 
   root :to => "about#grove"

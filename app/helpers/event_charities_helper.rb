@@ -1,0 +1,2 @@
+module EventCharitiesHelper
+end

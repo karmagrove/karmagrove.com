@@ -1,0 +1,27 @@
+<%= form_for(@event_charity) do |f| %>
+  <% if @event_charity.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event_charity.errors.count, "error") %> prohibited this event_charity from being saved:</h2>
+
+      <ul>
+      <% @event_charity.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= f.label :event_id %><br />
+    <%= f.text_field :event_id, :value => @event.id %>
+  </div>
+  <div class="field">
+    <%= f.label :charity_id %><br />
+    <%= f.select :charity_id, @charities %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

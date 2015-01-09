@@ -91,9 +91,20 @@
 
   <% if @event_charities %>
   <div class="row">
-    <div class="col-span-2">
-    <%= @event_charities.first.charity.legal_name %>
+    <div class="col-span-12">
+    You have the right to choose where <%= @event.revenue_donation_percent %>% of your ticket purchase price goes from the options below.
     </div>
+  </div>
+  <div class="row">
+    <% @event_charities.each do |event_charity|  %>
+    <div class="col-span-2">
+      <%= event_charity.charity.legal_name %>
+    </div>
+    <div class="col-span-2">
+      <%= event_charity.charity.deductibility_status_description %>
+    </div>
+    
+    <% end %>
   </div>
   
   <% end %>
@@ -102,6 +113,9 @@
   <%= render "event_tickets/show" %>
   <% end %>
 
+  <% if @purchase %> 
+  <%= render "balanced_purchase" %>
+  <% end %> 
 <% else %>
 
 <p>

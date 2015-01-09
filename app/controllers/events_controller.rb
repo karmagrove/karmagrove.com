@@ -74,6 +74,9 @@ class EventsController < InheritedResources::Base
         end
       end
 
+      @event_charities = @event.event_charities
+      @product = Product.find_by_reference_id(@event.id)
+      @purchase = Purchase.new
       respond_to do |format|
           format.html # show.html.erb
           format.json { render json: @product }
@@ -81,14 +84,14 @@ class EventsController < InheritedResources::Base
   end
 
 
-  def create
+  # def create
         
-      respond_to do |format|
-          format.html # new.html.erb
-          format.json { render json: @product }
-      end
+  #     respond_to do |format|
+  #         format.html # new.html.erb
+  #         format.json { render json: @product }
+  #     end
 
-  end
+  # end
 
   def new
       @current_user = current_user
