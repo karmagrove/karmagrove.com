@@ -83,7 +83,23 @@ class EventsController < InheritedResources::Base
       end
   end
 
+  def show_karmic_event
+      @event = KarmicEvent.find_by_name(params[:id])
+      if @event.nil?
+        @event = KarmicEvent.find_by_name(params[:id].split('-').join(' '))
 
+      end
+      @event.revenue_donation_percent = 10
+      @event_charities = @event.product_charities
+      @product = @event
+      @purchase = Purchase.new(:product_id => @event.id)
+      @purchase_price = @event.price
+      respond_to do |format|
+          format.html {render "events/karmic_event.html.erb" } # show.html.erb
+          format.json { render json: @product }
+      end
+
+  end
   # def create
         
   #     respond_to do |format|

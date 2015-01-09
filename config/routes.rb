@@ -121,6 +121,12 @@ Karmagrove::Application.routes.draw do
   match 'grove' => 'about#grove'
   match 'Get-Involved' => 'about#get_involved'
 
+  get ':id' => 'events#show_karmic_event'
+  match '/:id' => 'events#show_karmic_event'
+  match '/e/:id' => 'events#show_karmic_event'
+  get '/e/:id' => 'events#show_karmic_event'
+  post '/karmic_events/:id/purchases/new' => 'purchases#create_karmic_event_sale'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

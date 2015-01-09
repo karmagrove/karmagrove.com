@@ -1,0 +1,92 @@
+<p id="notice"><%= notice %></p>
+<% if @event %>
+  <div class="row">
+    <div class="col-span-2">
+    <p>
+      <b>Name:</b>
+      <%= @event.name %>
+    </p>
+    <% if @event.revenue_donation_percent %>
+      <%= @event.revenue_donation_percent %>% of this amount will be donated.  
+    <% end %>
+    </div>
+    
+    <div class="description col-span-10">
+    <p>
+      <b>Description:</b>
+      <%= @event.description %>
+    </p>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-span-2"><p>
+      <b>Price:</b>
+      <%= @event.price %>
+    </p>
+    </div>
+    <div class="col-span-10">
+    <% if @event.image_url %>
+    
+    <%= image_tag(@event.image_url) %>
+    
+    <% end %>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-span-2">
+    <p>
+      <b>About the event creator</b>
+      Jessica Tartaro PHD and Noah Coad.
+    </p>
+    </div>
+  
+    <div class="col-span-8">
+    <b> Location of event </b>
+    <p>
+     Doctor Tartaro's office.  Dallas TX
+    </div>
+  
+    <div class="col-span-2">
+    <b> Timing of event </b>
+    <p>
+      <b>Start time:</b>
+     12:00 PM
+    </p>
+    
+    <p>
+      <b>End time:</b>
+     5:00 PM
+    </p>
+    </div>
+  
+  </div>
+
+  <% if @event_charities %>
+  <div class="row">
+    <div class="col-span-12">
+    You have the right to choose where <%= @event.revenue_donation_percent %>% of your ticket purchase price goes from the options below.
+    </div>
+  </div>
+  <div class="row">
+    <% @event_charities.each do |event_charity|  %>
+    <div class="col-span-2">
+      <%= event_charity.charity.legal_name %>
+    </div>
+    <div class="col-span-2">
+      <%= event_charity.charity.deductibility_status_description %>
+    </div>
+    
+    <% end %>
+  </div>
+  
+  <% end %>
+
+  <% if @purchase %> 
+  <%= render "balanced_purchase_karmic_event" %>
+  <% end %> 
+<p>
+<% else %> 
+Nothing to see here.... 
+<% end %> 

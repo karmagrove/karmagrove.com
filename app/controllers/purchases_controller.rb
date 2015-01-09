@@ -203,4 +203,52 @@ end
 
   end
 
+  def create_karmic_event_sale
+    rails.logger.info "IN create_karmic_event_sale"
+    @purchase = Purchase.new(params[:purchase])
+    @purchase.product_id = params[:product_id]
+    # @purchase.buyer_id =
+  
+    @product = Product.find params[:product_id]
+    @purchase.save
+  
+    Rails.logger.info("params:  #{params.inspect}")
+    # redirect_to "/purchases/#{@purchase.id}/donations/new"
+    @buyer = User.find_or_create_by_email(params['email'])
+  
+    Rails.logger.info("buyer: purchase:  #{@buyer}")
+    if params["product"] and params["product"]["id"]
+      @event = KarmicEvent.find(params["product"]["id"])
+      Rails.logger.info("@event: #{@event.inspect}")
+    end
+    @purchase = Purchase.new(:buyer_id => @buyer.id, :product_id => params[:product][:id])
+    @purchase.save
+    # Set your secret key: remember to change this to your live secret key in production
+    # See your keys here https://manage.stripe.com/account
+    # Stripe.api_key = "sk_test_B5RUJ3ZgW7BnB5VKp1vNbE7e"
+  
+    # Get the credit card details submitted by the form
+    # token = params[:stripeToken]
+    # Create the charge on Stripe's servers - this will charge the user's card
+    
+    begin
+     if @purchase.save_with_balanced_payment({:purchase_id => @purchase.id, card_url: params[:balancedCreditCardURI], :price => params[:price]})
+       mailer_params = {recipient: @buyer, gift: @purchase, event: @event}
+       Rails.logger.info "purchase with payment... params: #{mailer_params}"
+       #email = Notifier.send_purchase_email(mailer_params)
+       # email.deliver
+       email = Notifier.send_event_ticket(mailer_params)
+       email.deliver
+       redirect_to "/"
+     else
+      render :new
+     end
+
+    rescue Exception => e
+      # The card has been declined
+      Rails.logger.info "error: #{e.message}"
+    end
+
+  end
+
 end
