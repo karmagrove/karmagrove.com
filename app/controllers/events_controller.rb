@@ -93,11 +93,12 @@ class EventsController < InheritedResources::Base
   def new
       @current_user = current_user
       Rails.logger.info("current_suser #{@current_user.inspect}")
-      if @current_user == nil
-        redirect_to "/users/login"
-        return true
-      end
+      # if @current_user == nil
+      #   redirect_to "/users/login"
+      #   return true
+      # end
       @event = Event.new
+      @eventticket = EventTicket.new
       respond_to do |format|
           format.html # new.html.erb
           format.json { render json: @product }
