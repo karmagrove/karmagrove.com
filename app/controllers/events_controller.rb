@@ -100,15 +100,26 @@ class EventsController < InheritedResources::Base
       end
 
   end
-  # def create
-        
-  #     respond_to do |format|
-  #         format.html # new.html.erb
-  #         format.json { render json: @product }
-  #     end
+  
+  # POST events/new 
+  def create
+      @event = Event.create(params[:event])
+      @event.save
+      @product = Product.create(:reference_id => @event.id, :name => @event.name, :price => @event.price)
+      @product.save
+      if @product and @event 
+        redirect_to "/events/#{@event.id}?show_unpublished=true"
+      else
+      respond_to do |format|
+          # format.html { redirect_to "/events/#{@event.id}"}
+          format.html # new.html.erb
+          format.json { render json: @product }
+      end
+      end
 
-  # end
+  end
 
+  ## for the event ticket nonsense....
   def new
       @current_user = current_user
       Rails.logger.info("current_suser #{@current_user.inspect}")
