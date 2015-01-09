@@ -173,7 +173,7 @@ end
 
 #POST /products/:id/purchases/new
   def create
-    rails.logger.info "IN POST PRUCASE"
+    Rails.logger.info( "IN POST PRUCASE")
     @purchase = Purchase.new(params[:purchase])
     @purchase.product_id = params[:product_id]
     # @purchase.buyer_id =
@@ -202,6 +202,40 @@ end
     end
 
   end
+
+  def create_event_purchase
+    Rails.logger.info( "IN POST PRUCASE")
+    @product = Product.find(params[:product][:id])
+    Rails.logger.info( "IN POST PRUCASE #{@product}")
+    @purchase = Purchase.new(params[:purchase])
+    @purchase.product_id = @product.id
+    # @purchase.buyer_id =
+  
+    
+    @purchase.save
+  
+    # Set your secret key: remember to change this to your live secret key in production
+    # See your keys here https://manage.stripe.com/account
+    # Stripe.api_key = "sk_test_B5RUJ3ZgW7BnB5VKp1vNbE7e"
+  
+    # Get the credit card details submitted by the form
+    # token = params[:stripeToken]
+    # Create the charge on Stripe's servers - this will charge the user's card
+    
+    begin
+     if @purchase.save_with_balanced_payment({:purchase_id => @purchase.id, card_url: params[:balancedCreditCardURI], :price => params[:price]})
+       redirect_to "/purchases/#{@purchase.id}/donations/new"
+     else
+      render :new
+     end
+
+    rescue Exception => e
+      # The card has been declined
+      Rails.logger.info "error: #{e.message}"
+    end
+
+  end
+
 
   def create_karmic_event_sale
     rails.logger.info "IN create_karmic_event_sale"

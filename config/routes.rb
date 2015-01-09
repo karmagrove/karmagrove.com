@@ -127,6 +127,8 @@ Karmagrove::Application.routes.draw do
   get '/e/:id' => 'events#show_karmic_event'
   post '/karmic_events/:id/purchases/new' => 'purchases#create_karmic_event_sale'
 
+  post 'events/:id/purchases/new' => 'purchases#create_event_purchase'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

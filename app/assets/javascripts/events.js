@@ -1,6 +1,3 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 jQuery(function($) {
   $('#purchaseButton').click(function(e) {
     e.preventDefault();
@@ -16,7 +13,7 @@ jQuery(function($) {
     
     // balanced.init('/v1/marketplaces/TEST-MP3hv19s9WbPESuP8W2kKoqu/transactions');
     balanced.init('/v1/marketplaces/MP2zvxosS3lVYf0xYghItBbO/transactions');
-    var $form = $('.edit_purchase');
+    var $form = $('.new_purchase');
     // var creditCardData = {
     //     card_number: 
     //     expiration_month: 
@@ -73,7 +70,7 @@ jQuery(function($) {
                value: response.cards[0].href,
                name: 'balancedCreditCardURI'
             }).appendTo($form);
-           $('.edit_purchase').submit()
+           $('.new_purchase').submit()
             break;
         case 400:
             // missing field - check response.error for details
