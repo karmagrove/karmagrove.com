@@ -7,12 +7,17 @@
   </p>
   
   <% end %>
+
+
   <div class="row">
-    <div class="col-span-2"
+    <div class="col-span-2">
     <p>
       <b>Name:</b>
       <%= @event.name %>
     </p>
+    <% if @event.revenue_donation_percent %>
+      <%= @event.revenue_donation_percent %>% of this amount will be donated.  
+    <% end %>
     </div>
     
     <div class="description col-span-10">
@@ -91,6 +96,10 @@
     </div>
   </div>
   
+  <% end %>
+
+  <% if @event_tickets %>
+  <%= render "event_tickets/show" %>
   <% end %>
 
 <% else %>

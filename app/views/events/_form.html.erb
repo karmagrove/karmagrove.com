@@ -24,6 +24,10 @@
     <%= f.number_field :price %>
   </div>
   <div class="field">
+    <%= f.label :revenue_donation_percent %><br />
+    <%= f.number_field :revenue_donation_percent %>
+  </div>
+  <div class="field">
     <%= f.label :image_url %><br />
     <%= f.text_field :image_url %>
   </div>
@@ -60,6 +64,7 @@
     true <%= f.radio_button :published, "true"  %>
     false <%= f.radio_button :published, "false"  %>
   </div>
+  
   <div class="actions">
     <%= f.submit %>
   </div>

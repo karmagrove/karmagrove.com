@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150107025948) do
+ActiveRecord::Schema.define(:version => 20150109001502) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -176,6 +176,16 @@ ActiveRecord::Schema.define(:version => 20150107025948) do
   add_index "donations", ["charity_id"], :name => "index_donations_on_charity_id"
   add_index "donations", ["purchase_id"], :name => "index_donations_on_purchase_id"
 
+  create_table "event_charities", :force => true do |t|
+    t.integer  "event_id"
+    t.integer  "charity_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "event_charities", ["charity_id"], :name => "index_event_charities_on_charity_id"
+  add_index "event_charities", ["event_id"], :name => "index_event_charities_on_event_id"
+
   create_table "event_discounts", :force => true do |t|
     t.string   "code"
     t.integer  "price"
@@ -211,10 +221,13 @@ ActiveRecord::Schema.define(:version => 20150107025948) do
     t.integer  "zip_code"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
     t.boolean  "published"
     t.string   "url"
+    t.integer  "revenue_donation_percent"
+    t.string   "workflow_state"
+    t.float    "total_donated"
   end
 
   add_index "events", ["seller_id"], :name => "index_events_on_seller_id"
@@ -254,10 +267,12 @@ ActiveRecord::Schema.define(:version => 20150107025948) do
     t.string   "name"
     t.text     "description"
     t.decimal  "price"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.string   "image_url"
     t.integer  "quantity"
+    t.integer  "reference_id"
+    t.string   "type"
   end
 
   create_table "purchases", :force => true do |t|

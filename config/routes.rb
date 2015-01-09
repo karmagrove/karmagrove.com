@@ -101,6 +101,10 @@ Karmagrove::Application.routes.draw do
     resources :donations
   end
 
+  resources :events do
+    resources :event_tickets
+  end
+
   root :to => "about#grove"
 
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout"}
