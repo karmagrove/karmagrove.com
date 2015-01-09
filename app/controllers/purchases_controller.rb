@@ -153,14 +153,16 @@ end
     # session['callback_code'] = @code
     if @purchase.purchase_price
       @purchase_price = (@purchase.purchase_price/100).to_s
-      
-    else
+    elsif @product.price  
+      @purchase_price = @product.price
+    else      
       @purchase_price = 10.00
     end
     if @purchase.payment_href
       @need_payment = false
     end
     
+
     if @purchase.donation_id
       respond_to do |format|
         format.html
@@ -224,6 +226,7 @@ end
     
     begin
      if @purchase.save_with_balanced_payment({:purchase_id => @purchase.id, card_url: params[:balancedCreditCardURI], :price => params[:price]})
+       @purchase.paid = true
        redirect_to "/purchases/#{@purchase.id}/donations/new"
      else
       render :new
