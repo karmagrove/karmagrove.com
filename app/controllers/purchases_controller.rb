@@ -211,10 +211,12 @@ end
     Rails.logger.info( "IN POST PRUCASE #{@product}")
     @purchase = Purchase.new(params[:purchase])
     @purchase.product_id = @product.id
-    # @purchase.buyer_id =
-  
     
+  
+    @buyer = User.find_or_create_by_email(params['email'])
+    @purchase.buyer_id = @buyer.id
     @purchase.save
+    @event = Event.find(@product.reference_id)
   
     # Set your secret key: remember to change this to your live secret key in production
     # See your keys here https://manage.stripe.com/account
@@ -227,6 +229,13 @@ end
     begin
      if @purchase.save_with_balanced_payment({:purchase_id => @purchase.id, card_url: params[:balancedCreditCardURI], :price => params[:price]})
        @purchase.paid = true
+       mailer_params = {recipient: @buyer, gift: @purchase, event: @event}
+       Rails.logger.info "purchase with payment... params: #{mailer_params}"
+       #email = Notifier.send_purchase_email(mailer_params)
+       # email.deliver
+       email = Notifier.send_user_event_ticket(mailer_params)
+       email.deliver
+       Rails.logger.info email
        redirect_to "/purchases/#{@purchase.id}/donations/new"
      else
       render :new

@@ -1,0 +1,33 @@
+<h1>
+Thank you for purchasing a ticket to <%= @event.name %>
+</h1>
+Please keep this email for your records and bring a copy or screenshot of the following QR code to the event along with a valid photo id.  
+
+<%= image_tag(@ticket_url) %>
+
+Choose who benefits at http://www.karmagrove.com/purchases/<%=@gift.id%>/donations/new
+
+  <% @charities.each do |charity| %>
+    <br />
+    <a href="http://www.karmagrove.com/donations/<%=charity.id%>/purchases/<%=@gift.id%>/update"> <button class="btn btn-large btn-block" type="button">
+      <h3> <%= charity.legal_name %>
+         <% if charity.city && charity.state %>
+           <small> <%= charity.city %>, <%= charity.state %> </small>
+         <% elsif charity.city %>
+           <small> <%= charity.city %> </small>
+         <% elsif charity.state %>
+           <small> <%= charity.state %> </small>
+         <% else %>
+         <% end %>
+      </h3>
+      <br />
+      <%= charity.deductibility_status_description %>
+
+    </button>
+    </a>
+  <% end %>
+
+
+<a href="http://www.karmagrove.com/auth/facebook/login?donation_id="> Connect your facebook to claim your account and review past purchases, participate in the marketplace, and help Karma Grow. </a>
+
+
