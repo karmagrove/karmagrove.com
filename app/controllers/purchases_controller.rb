@@ -229,6 +229,7 @@ end
     begin
      if @purchase.save_with_balanced_payment({:purchase_id => @purchase.id, card_url: params[:balancedCreditCardURI], :price => params[:price]})
        @purchase.paid = true
+       @purchase.save
        mailer_params = {recipient: @buyer, gift: @purchase, event: @event}
        Rails.logger.info "purchase with payment... params: #{mailer_params}"
        #email = Notifier.send_purchase_email(mailer_params)
