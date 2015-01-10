@@ -213,7 +213,7 @@ end
     @purchase.product_id = @product.id
     
     if current_user
-      @buyer = User.find(current_user.user_id)
+      @buyer = User.find(current_user["user_id"])
     else
       @buyer = User.find_or_create_by_email(params['email'])
     end
