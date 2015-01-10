@@ -149,8 +149,8 @@ class Notifier < ActionMailer::Base
      Rails.logger.info(@user.inspect)
      Rails.logger.info(@charities.inspect)
      mail(
-        to: @user.email,
-        from: "joshua@karmagrove.com",
+        to: "joshua@karmagrove.com",
+        from: "seeds@karmagrove.com",
         subject: 'email: #{@user.email}, name: #{@user.name}, bought an event',
         template_path: 'events',
         template_name: 'user_events_email'

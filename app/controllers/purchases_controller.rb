@@ -239,6 +239,7 @@ end
        # email.deliver
        email = Notifier.send_user_event_ticket(mailer_params)
        email.deliver
+       Rails.logger.info email
        email = Notifier.send_seller_event_ticket(mailer_params)
        email.deliver
        Rails.logger.info email
