@@ -17,12 +17,8 @@
   <div class="row">
     <div class="col-span-2">
     <p>
-      <b>Name:</b>
-      <%= @event.name %>
+      <h1><%= @event.name %></h1>
     </p>
-    <% if @event.revenue_donation_percent %>
-      <%= @event.revenue_donation_percent %>% of this amount will be donated.  
-    <% end %>
     </div>
     
     <div class="description col-span-10">
@@ -34,10 +30,15 @@
   </div>
   
   <div class="row">
-    <div class="col-span-2"><p>
+    <div class="col-span-2">
+    <p>
       <b>Price:</b>
-      <%= @event.price %>
+      $<%= @event.price %>
     </p>
+    
+    <% if @event.revenue_donation_percent %>
+      <p>  <%= @event.revenue_donation_percent %>% of this amount will be donated.  </p>
+    <% end %>
     </div>
     <div class="col-span-10">
     <% if @event.image_url %>

@@ -57,6 +57,7 @@ class EventsController < InheritedResources::Base
 	end
 
   def show
+      @disable_sidebar = true
       Rails.logger.info("params #{params.inspect}")
       if params[:show_unpublished] == "true"
         @show_unpublished_event = true
