@@ -1,10 +1,10 @@
 <% javascript 'events.js' %>
 
 <p id="notice"><%= notice %></p>
-<% if @event.published or @show_unpublished_event%>
-  <% if  @event.published == true %>
+
+<% if  @event.published == false and @show_unpublished_event %>
   <p>
-    <b>The Event is published</b>
+    <b>The Event is unpublished</b>
     <% if @show_unpublished_event  %>
       <b> <a href="<%= url_for(edit_event_path) %>"> Edit the event</a> </b>
 
@@ -13,24 +13,27 @@
   
   <% end %>
 
-
+<% if @event.published or @show_unpublished_event %>
+  
+<div class="well"> 
   <div class="row">
-    <div class="col-span-2">
+    <div class="col-lg-12">
     <p>
       <h1><%= @event.name %></h1>
     </p>
     </div>
-    
-    <div class="description col-span-10">
+    </div>
+  <div class="row">
+    <div class="description col-lg-12">
     <p>
       <b>Description:</b>
-      <%= @event.description %>
+      <%= @event.description.html_safe %>
     </p>
     </div>
   </div>
   
   <div class="row">
-    <div class="col-span-2">
+    <div class="col-lg-2">
     <p>
       <b>Price:</b>
       $<%= @event.price %>
@@ -39,26 +42,7 @@
     <% if @event.revenue_donation_percent %>
       <p>  <%= @event.revenue_donation_percent %>% of this amount will be donated.  </p>
     <% end %>
-    </div>
-    <div class="col-span-10">
-    <% if @event.image_url %>
-    
-    <%= image_tag(@event.image_url) %>
-    
-    <% end %>
-    </div>
-  </div>
-  
-  <div class="row">
-    <% if @event.seller %>
-    <div class="col-span-2">
-    <p>
-      <b>About the event creator</b>
-      <%= @event.seller %>
-    </p>
-    </div>
-    <% end %>
-    <div class="col-span-8">
+
     <b> Location of event </b>
     <p>
       <b>Address:</b>
@@ -79,19 +63,43 @@
       <b>Zip code:</b>
       <%= @event.zip_code %>
     </p>
-    </div>
-  
-    <div class="col-span-2">
+    <p>
     <b> Timing of event </b>
+    </p>
     <p>
       <b>Start time:</b>
-      <%= @event.start_time %>
+      <%= @event.start_time.strftime('%Y-%m-%d %H:%M:%S') %>
     </p>
     
     <p>
       <b>End time:</b>
-      <%= @event.end_time %>
+      <%= @event.end_time.strftime('%Y-%m-%d %H:%M:%S') %>
     </p>
+    </div>
+    <div class="col-lg-10">
+    <% if @event.image_url %>
+    
+    <%= image_tag(@event.image_url,:class=>"img-responsive img-rounded",:css =>"width: 100%") %>
+    
+    <% end %>
+    </div>
+  </div>
+  
+  <div class="row">
+    <% if @event.seller %>
+    <div class="col-span-2">
+    <p>
+      <b>About the event creator</b>
+      <%= @event.seller %>
+    </p>
+    </div>
+    <% end %>
+    <div class="col-span-8">
+  
+    </div>
+  
+    <div class="col-span-2">
+
     </div>
   
   </div>
@@ -99,8 +107,7 @@
   <% if @event_charities %>
   <div class="row">
     <div class="col-span-12">
-    <h2>You have the right to choose where <%= @event.revenue_donation_percent %>% of your ticket purchase price flows from the options below.</h2>
-    <h3> Giving is receiving.  With this purchase you may give $<%= @event.price / @event.revenue_donation_percent %> where you decide to help those in need in your community while also helping yourself learn to flirt. </h3>
+    <h3> Giving is receiving.  With this purchase you may give $<%= @event.price / @event.revenue_donation_percent %> where you decide to help those in need in your community while also helping yourself learn to flirt! </h3>
     </div>
   </div>
   <div class="row">
@@ -147,3 +154,4 @@ create event
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
 <% end %>
+</div>
