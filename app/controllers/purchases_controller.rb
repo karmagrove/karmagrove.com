@@ -212,8 +212,8 @@ end
     @purchase = Purchase.new(params[:purchase])
     @purchase.product_id = @product.id
     
-    if @guy = current_user
-      @buyer = User.find(@guy["user_id"].to_i)
+    if current_user
+      @buyer = current_user
     else
       @buyer = User.find_or_create_by_email(params['email'])
     end
