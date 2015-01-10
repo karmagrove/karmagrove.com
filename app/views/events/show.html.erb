@@ -5,7 +5,7 @@
   <% if  @event.published == true %>
   <p>
     <b>The Event is published</b>
-    <%= if @show_unpublished_event  %>
+    <% if @show_unpublished_event  %>
       <b> <a href="<%= url_for(edit_event_path) %>"> Edit the event</a> </b>
 
      <% end %> 
@@ -97,7 +97,8 @@
   <% if @event_charities %>
   <div class="row">
     <div class="col-span-12">
-    You have the right to choose where <%= @event.revenue_donation_percent %>% of your ticket purchase price goes from the options below.
+    <h2>You have the right to choose where <%= @event.revenue_donation_percent %>% of your ticket purchase price flows from the options below.</h2>
+    <h3> Giving is receiving.  With this purchase you may give $<%= @event.price / @event.revenue_donation_percent %> where you decide to help those in need in your community while also helping yourself learn to flirt. </h3>
     </div>
   </div>
   <div class="row">
