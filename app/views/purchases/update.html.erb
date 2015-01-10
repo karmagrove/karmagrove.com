@@ -101,8 +101,6 @@ You have the right to give <%=@purchase.profit_donation_percent %>% of any amoun
 
 <% if current_user %>
   Signed in as <strong><%= current_user.name %></strong>!
-  <%= # not sure which one of these is right... link_to "Sign out", signout_path, id: "sign_out" %>
-  <%= # link_to "Sign out",  destroy_user_session_path, id: "sign_out" %>
 <% else %>
   <%= link_to "Sign in with Facebook", "/auth/facebook/login?donation_id=#{params[:purchase_id]}", id: "sign_in" %>
 <% end %>

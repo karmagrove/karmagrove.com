@@ -1,7 +1,8 @@
 class Product < ActiveRecord::Base
   has_many :product_charities
   
-  attr_accessible :description, :name, :price, :id, :image_url, :quantity, :reference_id, :type
+  attr_accessible :description, :name, :price, :id, 
+  :image_url, :quantity, :reference_id, :type, :revenue_donation_percent
   # dragonfly_accessor :photo  
 
   def description_display

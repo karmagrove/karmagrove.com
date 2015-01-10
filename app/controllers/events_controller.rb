@@ -107,7 +107,8 @@ class EventsController < InheritedResources::Base
   def create
       @event = Event.create(params[:event])
       @event.save
-      @product = Product.create(:reference_id => @event.id, :name => @event.name, :price => @event.price)
+      @product = Product.create(:reference_id => @event.id, :name => @event.name, :price => @event.price,
+        :revenue_donation_percent => @event.revenue_donation_percent)
       @product.save
       if @product and @event 
         redirect_to "/events/#{@event.id}?show_unpublished=true"

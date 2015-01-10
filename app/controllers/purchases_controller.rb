@@ -126,16 +126,19 @@ end
       @purchase.donation_id = @donation.id
       @purchase.save
 
-      # @donation_amount = 0
-      # if @purchase.purchase_price and @purchase.revenue_donation_percent
-      #   @donation_amount = (@purchase.purchase_price/100)*(@purchase.revenue_donation_percent/100.to_f)
-      #   @donation_amount = sprintf "%.2f", @donation_amount
-      # end  
+      @donation_amount = 0
+      if @purchase.purchase_price and @purchase.revenue_donation_percent
+        @donation_amount = (@purchase.purchase_price/100)*(@purchase.revenue_donation_percent/100.to_f)
+        @donation_amount = sprintf "%.2f", @donation_amount
+      end  
 
-      # @donation ||= Donation.create(:charity_id => @charity.id,:purchase_id => @purchase.id )
+      @donation ||= Donation.create(:charity_id => @charity.id,:purchase_id => @purchase.id )
+      if @product.price and @product.revenue_donation_percent
+        @donation_amount = @product.price / @product.revenue_donation_percent
+      end
+      @donation.amount = @donation_amount
+      @donation.save
 
-      # @donation.amount = @donation_amount
-      @donation_amount = @donation.amount 
       if @purchase.purchase_price and @purchase.purchase_price > 0 
         @price = @purchase.purchase_price / 100
       end
