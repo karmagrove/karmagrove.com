@@ -98,14 +98,18 @@
     </div>
   </div>
   <div class="row">
+
     <% @event_charities.each do |event_charity|  %>
+     <div class="row">
     <div class="col-span-2">
-      <%= event_charity.charity.legal_name %>
+      <h4> <%= event_charity.charity.legal_name %></h4>
     </div>
     <div class="col-span-2">
-      <%= event_charity.charity.deductibility_status_description %>
+     <b> <%= event_charity.charity.deductibility_status_description %></b>
+      </div>
+      
     </div>
-    
+    <hr> 
     <% end %>
   </div>
   
