@@ -212,8 +212,11 @@ end
     @purchase = Purchase.new(params[:purchase])
     @purchase.product_id = @product.id
     
-  
-    @buyer = User.find_or_create_by_email(params['email'])
+    if current_user
+      @buyer = User.find(current_user.user_id)
+    else
+      @buyer = User.find_or_create_by_email(params['email'])
+    end
     @purchase.buyer_id = @buyer.id
     @purchase.save
     @event = Event.find(@product.reference_id)
@@ -235,6 +238,8 @@ end
        #email = Notifier.send_purchase_email(mailer_params)
        # email.deliver
        email = Notifier.send_user_event_ticket(mailer_params)
+       email.deliver
+       email = Notifier.send_seller_event_ticket(mailer_params)
        email.deliver
        Rails.logger.info email
        redirect_to "/purchases/#{@purchase.id}/donations/new"
