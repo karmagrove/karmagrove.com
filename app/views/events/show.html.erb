@@ -141,7 +141,7 @@ create event
 
 <% end %>
 
-<% if current_user and current_user == @event.creator %>
+<% if current_user and current_user == @event.seller %>
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
 <% end %>
