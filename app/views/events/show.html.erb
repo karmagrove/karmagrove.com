@@ -50,13 +50,14 @@
   </div>
   
   <div class="row">
+    <% if @event.seller %>
     <div class="col-span-2">
     <p>
       <b>About the event creator</b>
       <%= @event.seller %>
     </p>
     </div>
-  
+    <% end %>
     <div class="col-span-8">
     <b> Location of event </b>
     <p>
