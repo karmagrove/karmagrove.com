@@ -3,13 +3,14 @@ jQuery(function($) {
     e.preventDefault();
     var $form = $(this);
 
+
+
     // Disable the submit button to prevent repeated clicks
     $form.find('button').prop('disabled', true);
 
     // Stripe.card.createToken($form, stripeResponseHandler);
 
     // Prevent the form from submitting with the default action
-
     
     // balanced.init('/v1/marketplaces/TEST-MP3hv19s9WbPESuP8W2kKoqu/transactions');
     balanced.init('/v1/marketplaces/MP2zvxosS3lVYf0xYghItBbO/transactions');
@@ -20,6 +21,11 @@ jQuery(function($) {
     //     expiration_year: 
     //     security_code: 
     //  };
+
+    var person_name = $('#cc_name').val()
+    if(person_name == null){
+      $('label[for=cc_name]').css('color','red')
+    }
 
     var payload = {
       name: $('#cc_name').val(),
