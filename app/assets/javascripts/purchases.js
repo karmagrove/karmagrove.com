@@ -23,7 +23,7 @@ jQuery(function($) {
     //  };
 
     var person_name = $('#cc_name').val()
-    if(person_name == null){
+    if(person_name == ""){
       $('label[for=cc_name]').css('color','red')
     }
 
