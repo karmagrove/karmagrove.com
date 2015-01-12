@@ -21,11 +21,25 @@ jQuery(function($) {
     //     expiration_year: 
     //     security_code: 
     //  };
-
-    var person_name = $('#cc_name').val()
-    if(person_name == ""){
-      $('label[for=cc_name]').css('color','red')
+    var select_id, item;
+    var item_list = ["price","cc_name","card_number","card_month","card_year","card_code","postal_code","email"];
+    for( i in item_list){
+      select_id = "#"+item_list[i];
+      item = $(select_id).val();
+      if(item == ""){
+        $('label[for='+item_list[i]+']').css('color','red')
+      } else {
+        $('label[for='+item_list[i]+']').css('color','black')
+      }  
     }
+    // var person_name = $('#cc_name').val()
+    // if(person_name == ""){
+    //   $('label[for=cc_name]').css('color','red')
+    // } else {
+    //   $('label[for=cc_name]').css('color','black')
+    // }
+
+
 
     var payload = {
       name: $('#cc_name').val(),

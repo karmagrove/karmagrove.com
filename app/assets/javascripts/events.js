@@ -11,8 +11,8 @@ jQuery(function($) {
     // Prevent the form from submitting with the default action
 
     
-    // balanced.init('/v1/marketplaces/TEST-MP3hv19s9WbPESuP8W2kKoqu/transactions');
-    balanced.init('/v1/marketplaces/MP2zvxosS3lVYf0xYghItBbO/transactions');
+    balanced.init('/v1/marketplaces/TEST-MP3hv19s9WbPESuP8W2kKoqu/transactions');
+    // balanced.init('/v1/marketplaces/MP2zvxosS3lVYf0xYghItBbO/transactions');
     var $form = $('.new_purchase');
     // var creditCardData = {
     //     card_number: 
@@ -20,7 +20,21 @@ jQuery(function($) {
     //     expiration_year: 
     //     security_code: 
     //  };
-
+        //  };
+    var select_id, item;
+    var item_list = ["price","cc_name","card_number","card_month","card_year","card_code","postal_code","email"];
+    for( i in item_list){
+      select_id = "#"+item_list[i];
+      item = $(select_id).val();
+      // var item = $('#cc_name').val()
+      console.log('item?')
+      console.log(item);
+      if(item == ""){
+        $('label[for='+item_list[i]+']').css('color','red')
+      } else {
+        $('label[for='+item_list[i]+']').css('color','black')
+      }  
+    }
     var payload = {
       name: $('#cc_name').val(),
       number: $form.find('#card_number').val(),
