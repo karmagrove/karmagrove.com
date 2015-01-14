@@ -22,6 +22,7 @@ Karmagrove::Application.routes.draw do
   put '/luminosa', to: 'events#purchase'
 
   match '/buddha', to: 'buddhas#dharmaya'
+  match '/Buddha', to: 'buddhas#dharmaya'
   get '/buddhas', to:  'buddhas#dharmaya'
   put '/buddhas', to: 'buddhas#create'
 
