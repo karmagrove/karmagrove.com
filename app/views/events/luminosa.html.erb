@@ -1,11 +1,6 @@
-
-
 <h1> luminosa  </h1>
 <h2> Sacred arts dance and music festival </h2>
 <h3> 1 % of your purchase price ($2.22) goes to a charity of your choice </h3>
-<h3>  THIS PAGE IS FOR TESTING AND THE PURCHASE WILL NOT ACTUALLY GIVE YOU A TICKET RIGHT NOW </h3>
-
-
 
 <%= form_for @purchase, :url => "/luminosa" do |f| %>
   <% if @purchase.errors.any? %>
@@ -18,9 +13,6 @@
       </ul>
     </div>
   <% end %>
-
-
-  
 
   <% if @product and @product.image_url %>
 
@@ -48,8 +40,8 @@
       <%= text_field_tag :price, "222.00", name: "price", :disabled => "true" %>
   </div>
   <div class="field">
-      <%= label_tag :number_of_tickets, "Amount charged to your card " %>
-      <%= text_field_tag :number_of_tickets, "1", name: "number of tickets", :disabled => "true" %>
+      <%= label_tag :number_of_tickets, "number of tickets" %>
+      <%= text_field_tag :number_of_tickets, "1", name: "number of tickets" %>
   </div>
    <div class="field">
       <%= label_tag :cc_name, "Name on Card " %>
@@ -86,6 +78,7 @@
   </div>    
     
   <div class="actions"><%= f.submit "Purchase" , :id => "purchaseButton" %></div>
-  <a href='https://www.expeditedssl.com/simple-ssl-scanner/scan?target_domain=www.karmagrove.com' target='_blank' alt='Expedited SSL Scanner'><img src='https://www.expeditedssl.com/ssl-secure-badge.png'></a>
+  <a href='https://www.expeditedssl.com/simple-ssl-scanner/scan?target_domain=www.karmagrove.com' target='_blank' alt='Expedited SSL Scanner'>  <img src='https://www.expeditedssl.com/ssl-secure-badge.png'>
+  </a>
   
 <% end %>
