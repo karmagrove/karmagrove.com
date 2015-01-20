@@ -1,4 +1,4 @@
-class Notifier < ActionMailer::Base
+class LuminosaMailer < ActionMailer::Base
   # default :from => 'seeds@karmagrove.com'
   default :from => 'luminosafestival@karmagrove.com'
 
@@ -30,7 +30,7 @@ class Notifier < ActionMailer::Base
 
       mail(
         to: @user.email,
-        from: "seeds@karmagrove.com",
+        from: "luminosafestival@karmagrove.com",
         subject: 'Thank you for your receiving a event',
         template_path: 'events',
         template_name: 'events_email'

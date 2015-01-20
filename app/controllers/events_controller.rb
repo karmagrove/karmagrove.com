@@ -2,8 +2,8 @@ class EventsController < InheritedResources::Base
 
 
 	def luminosa
-    authenticate_or_request_with_http_basic('Administration') do |username, password|
-      username == 'luminosa' && password == 'light'
+    # authenticate_or_request_with_http_basic('Administration') do |username, password|
+    #   username == 'luminosa' && password == 'light'
     
 		if Product.find_by_name "Luminosa" == nil 
        @product = Product.create!(:name => "Luminosa", :image_url => "/assets/monica.jpg", :price => 22200 ) 
@@ -19,7 +19,7 @@ class EventsController < InheritedResources::Base
           format.json { render json: @product }
          end
 
-     end
+     # end
 	end
 
 
@@ -36,7 +36,8 @@ class EventsController < InheritedResources::Base
        @purchase = Purchase.new(:buyer_id => @buyer.id, :product_id => params[:product][:id])
        @purchase.save
        Rails.logger.info("purchase #{@purchase}")
-       if @purchase.save_with_balanced_payment({:purchase_id => @purchase.id, card_url: params[:balancedCreditCardURI], :price => params[:price]})
+       @price = params[:purchase][:price].to_f
+       if @purchase.save_with_balanced_payment({:purchase_id => @purchase.id, card_url: params[:balancedCreditCardURI], :price => @price })
          # @windows_buddha_links = ["https://s3.amazonaws.com/karmagrove/tob-zips-1-17.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-18-34.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-35-49.sitx"]
          #@buddha_links = ["https://s3.amazonaws.com/karmagrove/tob-zips-1-17.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-18-34.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-35-49.sitx"]
          #@purchase= Purchase.last
@@ -44,9 +45,18 @@ class EventsController < InheritedResources::Base
          Rails.logger.info "purchase with payment... params: #{mailer_params}"
          #email = Notifier.send_purchase_email(mailer_params)
          # email.deliver
-         email = Notifier.send_event_ticket(mailer_params)
-         email.deliver
-         Rails.logger.info email
+         Rails.logger.info "event name @event.name #{@event.name}"
+         if @event.name == "Luminosa"
+          Rails.logger.info "event name @event.name #{@event.name} IS LUMINOSA"
+           email = LuminosaMailer.send_event_ticket(mailer_params)
+           email.deliver
+           Rails.logger.info email
+         else
+          email = Notifier.send_event_ticket(mailer_params)
+          email.deliver
+          Rails.logger.info email
+         end
+         
          redirect_to "/purchases/#{@purchase.id}/donations/new"
 	    
 		 else
