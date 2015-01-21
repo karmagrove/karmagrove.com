@@ -33,6 +33,7 @@ class EventsController < InheritedResources::Base
          @event = KarmicEvent.find(params["product"]["id"])
          Rails.logger.info("@event: #{@event.inspect}")
        end
+       ## Somehow handle a purchase with more than one product?  Or three products?  
        @purchase = Purchase.new(:buyer_id => @buyer.id, :product_id => params[:product][:id])
        @purchase.save
        Rails.logger.info("purchase #{@purchase}")
