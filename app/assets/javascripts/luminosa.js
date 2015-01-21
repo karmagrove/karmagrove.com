@@ -8,7 +8,7 @@ jQuery(function($) {
       $('#display_price').val(new_price)
     } else {
 
-       var price = 222.00; 
+       var price = 188.00; 
        var new_price = price * $('#number_of_tickets').val();
        $('#price').val(new_price)
        $('#display_price').val(new_price)
@@ -17,7 +17,7 @@ jQuery(function($) {
   }) 
 
   $('#number_of_tickets').change(function(){
-    var price = 222.00; 
+    var price = 188.00; 
     var coupon_code = $('#coupon_code').val();
     if (coupon_code === "restofus" ){
       price = 111.00;

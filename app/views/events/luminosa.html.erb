@@ -3,7 +3,8 @@
 <h1> luminosa  </h1>
 <h2> Sacred arts dance and music festival </h2>
 <h3> 1 % of your purchase price ($2.22) goes to a charity of your choice </h3>
-
+Extra-Early Bird Ticket:  $188
+Grab your tickets now, PRICES GO UP  March 1st!
 <%= form_for @purchase, :url => "/luminosa" do |f| %>
   <% if @purchase.errors.any? %>
     <div class="error_messages">
@@ -39,9 +40,9 @@
   <%end %>
   <div class="field">
       <%= label_tag :display_price, "Amount charged to your card " %>
-      <%= text_field_tag :display_price, "222.00", name: "price", :disabled => "true" %>
+      <%= text_field_tag :display_price, "188.00", name: "price", :disabled => "true" %>
   </div>
-  <%= f.hidden_field :price, :value => "222.00", :id => "price" %>
+  <%= f.hidden_field :price, :value => "188.00", :id => "price" %>
 
 
   <div class="field">

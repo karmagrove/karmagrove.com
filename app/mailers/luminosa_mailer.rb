@@ -30,7 +30,7 @@ class LuminosaMailer < ActionMailer::Base
 
       mail(
         to: @user.email,
-        from: "luminosafestival@karmagrove.com",
+        from: "luminosafestival@gmail.com",
         subject: 'Thank you for your receiving a event',
         template_path: 'events',
         template_name: 'events_email'
