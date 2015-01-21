@@ -1,12 +1,14 @@
 <h1>
-THIS IS NOT A REAL TICKET!!  We are testing! 
-</h1>
-<h1>
 Thank you for purchasing a ticket to <%= @event.name %>
 </h1>
-Please keep this email for your records and bring a copy or screenshot of the following QR code to the event along with a valid photo id.  
 
-<%= image_tag(@ticket_url) %>
+<h2> 
+This ticket belongs to <%= @gift.buyer.name %>
+</h2>
+
+Please keep this email for your records and bring a copy of this email to the event along with a valid photo id.  
+
+<%= image_tag(@ticket_url, :alt=> "purchase ##{@gift.id}") %>
 
 Choose who benefits at http://www.karmagrove.com/purchases/<%=@gift.id%>/donations/new
 

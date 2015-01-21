@@ -46,14 +46,15 @@ Grab your tickets now, PRICES GO UP  March 1st!
   </div>
   <%= f.hidden_field :price, :value => "188.00", :id => "price" %>
 
-
+  You may purchase one ticket at a time for now.  If you want two, just click back and buy again :) 
+  You'll get an email for each ticket.   
   <div class="field">
       <%= label_tag :number_of_tickets, "number of tickets" %>
-      <%= text_field_tag :number_of_tickets, "1", name: "number of tickets" %>
+      <%= text_field_tag :number_of_tickets, "1", name: "number of tickets",:disabled => "true" %>
   </div>
    <div class="field">
       <%= label_tag :cc_name, "Name on Card " %>
-      <%= text_field_tag :cc_name, nil, name: nil %>
+      <%= text_field_tag :cc_name, nil, name: "name" %>
   </div>
   <div class="field">
       <%= label_tag :card_number, "Credit Card Number " %>

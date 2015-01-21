@@ -27,7 +27,8 @@ class EventsController < InheritedResources::Base
 		Rails.logger.info("params:  #{params.inspect}")
     # redirect_to "/purchases/#{@purchase.id}/donations/new"
        @buyer = User.find_or_create_by_email(params['email'])
-   
+       @buyer.name = params[:name]
+       @buyer.save
        Rails.logger.info("buyer: purchase:  #{@buyer}")
        if params["product"] and params["product"]["id"]
          @event = KarmicEvent.find(params["product"]["id"])
