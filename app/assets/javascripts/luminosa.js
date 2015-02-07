@@ -1,7 +1,10 @@
 jQuery(function($) {
+
+  texas_zips = [73301,75001,75503-79999,88510-88589];
+  
   $('#coupon_code').change(function(){
     console.log($(this).val());
-    if ($(this).val() === "restofus" ){
+    if ($(this).val() === "restofus"  && ){
       var number_of_tickets = $("#number_of_tickets").val()
       var new_price = 111.00 * number_of_tickets;
       $('#price').val(new_price)
