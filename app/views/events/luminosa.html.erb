@@ -89,5 +89,24 @@ Grab your tickets now, PRICES GO UP  March 1st!
   <div class="actions"><%= f.submit "Purchase" , :id => "purchaseButton" %></div>
   <a href='https://www.expeditedssl.com/simple-ssl-scanner/scan?target_domain=www.karmagrove.com' target='_blank' alt='Expedited SSL Scanner'>  <img src='https://www.expeditedssl.com/ssl-secure-badge.png'>
   </a>
+
+  <% if @event_charities %>
+  <div class="row">
+    <div class="col-span-12">
+    <h1> After purchase you choose where 1% of the price goes from the options below. </h1>
+    </div>
+  </div>
+  <div class="row">
+    <% @event_charities.each do |event_charity|  %>
+    <div class="col-span-2">
+     <h2> <%= event_charity.charity.legal_name %> </h2>
+    </div>
+    <div class="col-span-2">
+     <h3> <%= event_charity.charity.deductibility_status_description %> </h3>
+    </div>
+    
+    <% end %>
+  </div>
   
+  <% end %>
 <% end %>

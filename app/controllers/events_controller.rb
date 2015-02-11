@@ -11,7 +11,7 @@ class EventsController < InheritedResources::Base
        @product = Product.find_by_name "Luminosa"
    end
     @purchase = Purchase.create!(:product_id => @product.id)
-
+    @event_charities = @product.product_charities
 		@disable_sidebar = true
     @disable_nav = true
 		respond_to do |format|
@@ -50,6 +50,9 @@ class EventsController < InheritedResources::Base
          #email = Notifier.send_purchase_email(mailer_params)
          # email.deliver
          Rails.logger.info "event name @event.name #{@event.name}"
+         @purchase.paid = true
+         @purchase.paid_description = "balanced"
+         @purchase.save
          if @event.name == "Luminosa"
           Rails.logger.info "event name @event.name #{@event.name} IS LUMINOSA"
            email = LuminosaMailer.send_event_ticket(mailer_params)
