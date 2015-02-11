@@ -14,6 +14,7 @@ class EventsController < InheritedResources::Base
     @event_charities = @product.product_charities
 		@disable_sidebar = true
     @disable_nav = true
+    @disable_footer = true
 		respond_to do |format|
           format.html # luminosa.html.erb
           format.json { render json: @product }

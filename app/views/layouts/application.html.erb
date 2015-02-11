@@ -81,6 +81,8 @@
         <% end %>
       </div>
     </div>
+    <% unless @disable_footer %>
     <%= render 'layouts/footer' %>
+    <% end %>
   </body>
   </html>
