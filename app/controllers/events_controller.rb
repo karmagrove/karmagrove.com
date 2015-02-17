@@ -109,7 +109,7 @@ class EventsController < InheritedResources::Base
         @event = KarmicEvent.find_by_name(params[:id].split('-').join(' '))
 
       end
-      @event.revenue_donation_percent = 10
+      #@event.revenue_donation_percent = 10
       @event_charities = @event.product_charities
       @product = @event
       @purchase = Purchase.new(:product_id => @event.id)
