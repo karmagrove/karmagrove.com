@@ -47,7 +47,7 @@ jQuery(function($) {
        $('#price').val(new_price)
        $('#display_price').val(new_price)
     }
-    if ($(this).val() === "volunteerluminosa2014" ){
+    if ($(this).val() === "volunteerluminosa2015" ){
       $("#number_of_tickets").val(1)
       var new_price = 88.00;
       $('#price').val(new_price);
@@ -61,7 +61,7 @@ jQuery(function($) {
     if ((coupon_code === "restofus" || coupon_code === "therestofus") && in_texas() == false){
       price = 111.00;
     }     
-    if (coupon_code=== "volunteerluminosa2014" ){
+    if (coupon_code=== "volunteerluminosa2015" ){
        $("#number_of_tickets").val(1)
        price = 88.00; 
     }
