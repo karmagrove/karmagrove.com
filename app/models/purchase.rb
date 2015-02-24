@@ -67,19 +67,25 @@ class Purchase < ActiveRecord::Base
 
       price = params[:price].to_i * 100
       response = card.debit(:amount => price)
-      Rails.logger.info("payment_response: #{response} : for price #{price}")
+      Rails.logger.info("payment_response: #{response.inspect} : for price #{price}")
       self.purchase_price = price
       # this is actually a balanced id.. whatever.. 
       self.stripe_transaction_id = response.attributes['id']
       self.payment_href=response.attributes['href']
       self.save
       self.paid = true
-
-    
       Rails.logger.info("save with balaned: #{card.inspect}")
+      if response.attributes['status'] == "succeeded"
+        payment_accepted = true
+      else
+        payment_accepted = false
+      end
     rescue Exception => e
       Rails.logger.info("save with balaned Exception #{e.inspect}")
+      payment_accepted = false
     end
+    Rails.logger.info("payment_accepted: #{payment_accepted}")
+    return payment_accepted
   end
 
   def create_donation(donation)

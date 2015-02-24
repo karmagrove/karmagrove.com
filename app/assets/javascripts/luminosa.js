@@ -8,7 +8,7 @@
   }
   in_texas = function (){
       // texas_zips = [73301,75001,75503-79999,88510-88589];
-      var texas_zips = [73301,75001]; 
+      var texas_zips  = [73301,75001]; 
       var zip_range_1 = [75503,79999];
       var zip_range_2 = [88510,88589];
       // zip_ranges = [79999,75503];
@@ -46,6 +46,12 @@ jQuery(function($) {
        var new_price = price * $('#number_of_tickets').val();
        $('#price').val(new_price)
        $('#display_price').val(new_price)
+    }
+    if ($(this).val() === "volunteer" ){
+      var number_of_tickets = $("#number_of_tickets").val()
+      var new_price = 89.00 * number_of_tickets;
+      $('#price').val(new_price)
+      $('#display_price').val(new_price)
     }
   }) 
 

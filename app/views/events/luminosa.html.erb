@@ -50,7 +50,7 @@ Grab your tickets now, PRICES GO UP  March 1st!
   You'll get an email for each ticket.   
   <div class="field">
       <%= label_tag :number_of_tickets, "number of tickets" %>
-      <%= text_field_tag :number_of_tickets, "1", name: "number of tickets",:disabled => "true" %>
+      <%= select_tag :number_of_tickets, options_for_select([1,2,3,4,5,6,7,8,9,10],1), name: "number of tickets" %>
   </div>
    <div class="field">
       <%= label_tag :cc_name, "Name on Card " %>

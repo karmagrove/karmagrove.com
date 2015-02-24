@@ -19,14 +19,13 @@ class EventsController < InheritedResources::Base
           format.html # luminosa.html.erb
           format.json { render json: @product }
          end
-
      # end
 	end
 
 
 	def purchase
-		Rails.logger.info("params:  #{params.inspect}")
-    # redirect_to "/purchases/#{@purchase.id}/donations/new"
+		   Rails.logger.info("params:  #{params.inspect}")
+       # redirect_to "/purchases/#{@purchase.id}/donations/new"
        @buyer = User.find_or_create_by_email(params['email'])
        @buyer.name = params[:name]
        @buyer.save
@@ -42,9 +41,11 @@ class EventsController < InheritedResources::Base
 
        ## price 
        @price = params[:purchase][:price].to_f
-       if @purchase.save_with_balanced_payment({:purchase_id => @purchase.id, card_url: params[:balancedCreditCardURI], :price => @price })
-         # @windows_buddha_links = ["https://s3.amazonaws.com/karmagrove/tob-zips-1-17.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-18-34.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-35-49.sitx"]
-         #@buddha_links = ["https://s3.amazonaws.com/karmagrove/tob-zips-1-17.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-18-34.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-35-49.sitx"]
+       if @purchase.save_with_balanced_payment({:purchase_id => @purchase.id, card_url: params[:balancedCreditCardURI], :price => @price }) == true
+         # @windows_buddha_links = ["https://s3.amazonaws.com/karmagrove/tob-zips-1-17.sitx",
+         # {}"https://s3.amazonaws.com/karmagrove/tob-zips-18-34.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-35-49.sitx"]
+         # @buddha_links = ["https://s3.amazonaws.com/karmagrove/tob-zips-1-17.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-18-34.sitx",
+         # "https://s3.amazonaws.com/karmagrove/tob-zips-35-49.sitx"]
          #@purchase= Purchase.last
          mailer_params = {recipient: @buyer, gift: @purchase, event: @event}
          Rails.logger.info "purchase with payment... params: #{mailer_params}"
@@ -67,10 +68,19 @@ class EventsController < InheritedResources::Base
          
          redirect_to "/purchases/#{@purchase.id}/donations/new"
 	    
-		 else
-      Rails.logger.info("purchase failed :( ")
-         send_event_ticket
-	   end
+		    else
+          Rails.logger.info("purchase failed :( ")
+         if @event.name == "Luminosa"
+           #flash_notice('payment failed')
+           redirect_to "/luminosa"
+           #flash_notice('payment failed')
+         else
+          ## redirect to the event.... 
+
+         end
+         ## no ticket emailed 
+         # email = Notifier.send_event_ticket(mailer_params) 
+	     end
 
 	end
 
@@ -92,7 +102,6 @@ class EventsController < InheritedResources::Base
           @event = Event.find_by_url(params[:id])
         end
       end
-
       @event_charities = @event.event_charities
       @product = Product.find_by_reference_id(@event.id)
       @purchase = Purchase.new
@@ -109,7 +118,8 @@ class EventsController < InheritedResources::Base
         @event = KarmicEvent.find_by_name(params[:id].split('-').join(' '))
 
       end
-      #@event.revenue_donation_percent = 10
+      @event.revenue_donation_percent = 10
+      @event.save
       @event_charities = @event.product_charities
       @product = @event
       @purchase = Purchase.new(:product_id => @event.id)
@@ -118,7 +128,6 @@ class EventsController < InheritedResources::Base
           format.html {render "events/karmic_event.html.erb" } # show.html.erb
           format.json { render json: @product }
       end
-
   end
   
   # POST events/new 
