@@ -47,13 +47,15 @@ class EventsController < InheritedResources::Base
          # @buddha_links = ["https://s3.amazonaws.com/karmagrove/tob-zips-1-17.sitx","https://s3.amazonaws.com/karmagrove/tob-zips-18-34.sitx",
          # "https://s3.amazonaws.com/karmagrove/tob-zips-35-49.sitx"]
          #@purchase= Purchase.last
-         mailer_params = {recipient: @buyer, gift: @purchase, event: @event}
+         ticketCount = params["number of tickets"]
+         mailer_params = {recipient: @buyer, gift: @purchase, event: @event, ticketCount: ticketCount }
          Rails.logger.info "purchase with payment... params: #{mailer_params}"
          #email = Notifier.send_purchase_email(mailer_params)
          # email.deliver
          Rails.logger.info "event name @event.name #{@event.name}"
          @purchase.paid = true
-         @purchase.paid_description = "balanced"
+         
+         @purchase.paid_description = "balanced: number of tickets: #{ticketCount}"
          @purchase.save
          if @event.name == "Luminosa"
           Rails.logger.info "event name @event.name #{@event.name} IS LUMINOSA"

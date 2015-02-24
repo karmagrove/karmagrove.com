@@ -36,7 +36,7 @@
 jQuery(function($) {  
   $('#coupon_code').change(function(){
     console.log($(this).val());
-    if ($(this).val() === "restofus" && in_texas() == false ){
+    if (($(this).val() === "restofus" || $(this).val() === "therestofus") && in_texas() == false ){
       var number_of_tickets = $("#number_of_tickets").val()
       var new_price = 111.00 * number_of_tickets;
       $('#price').val(new_price)
@@ -47,20 +47,24 @@ jQuery(function($) {
        $('#price').val(new_price)
        $('#display_price').val(new_price)
     }
-    if ($(this).val() === "volunteer" ){
-      var number_of_tickets = $("#number_of_tickets").val()
-      var new_price = 89.00 * number_of_tickets;
-      $('#price').val(new_price)
-      $('#display_price').val(new_price)
+    if ($(this).val() === "volunteerluminosa2014" ){
+      $("#number_of_tickets").val(1)
+      var new_price = 88.00;
+      $('#price').val(new_price);
+      $('#display_price').val(new_price);
     }
   }) 
 
   $('#number_of_tickets').change(function(){
     var price = 188.00; 
     var coupon_code = $('#coupon_code').val();
-    if (coupon_code === "restofus" && in_texas() == false){
+    if ((coupon_code === "restofus" || coupon_code === "therestofus") && in_texas() == false){
       price = 111.00;
     }     
+    if (coupon_code=== "volunteerluminosa2014" ){
+       $("#number_of_tickets").val(1)
+       price = 88.00; 
+    }
     var new_price = price * $(this).val();
     $('#price').val(new_price)
     $('#display_price').val(new_price)

@@ -8,6 +8,9 @@ Thank you for purchasing a ticket to <%= @event.name %>
 This ticket belongs to <%= @gift.buyer.name %>
 </h2>
 
+<h3> 
+You have purchased <%= @ticketCount %> ticket(s), and these are associated with your name and email. 
+</h3>
 Please keep this email for your records and bring a copy of this email to the event along with a valid photo id.  
 
 <%= image_tag(@ticket_url, :alt=> "purchase ##{@gift.id}") %>
