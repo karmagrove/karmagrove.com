@@ -3,7 +3,7 @@ class DonationsController < ApplicationController
 
   def new
     @disable_sidebar = true
-    @product_charities = Charity.limit 3
+    @product_charities = Charity.limit 4
      Rails.logger.info("Params #{params}")
     if params[:batch_id]  
       @batch_id = params[:batch_id]
