@@ -3,7 +3,7 @@ class DonationsController < ApplicationController
 
   def new
     @disable_sidebar = true
-    @product_charities = Charity.limit 4
+    @product_charities = Charity.limit 3
      Rails.logger.info("Params #{params}")
     if params[:batch_id]  
       @batch_id = params[:batch_id]
@@ -29,7 +29,7 @@ class DonationsController < ApplicationController
       @gift = Gift.find params[:purchase_id]
       # @product = @purchase.product
       
-      @product_charities = @gift.product.product_charities.limit 3
+      @product_charities = @gift.product.product_charities.limit 4
       @charity_ids = @product_charities.map {|product_charity| product_charity.charity_id }      
       @charities = Charity.where(:id => @charity_ids)
       #ProductCharity.where(:product_id => @product.id).map {|product_charity| product_charity.charity_id }      
