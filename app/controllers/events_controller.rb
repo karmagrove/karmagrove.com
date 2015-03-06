@@ -179,13 +179,24 @@ class EventsController < InheritedResources::Base
   end
 
   def report
-    @product = Event.find(params[:id])
-    @product ||= Product.find_by_name "Luminosa"
+     authenticate_or_request_with_http_basic('Administration') do |username, password|
+       username == 'luminosa' && password == 'light'
+      @product = if Event.exists?(params[:id]) then Event.find(params[:id]) end
+      @product ||= Product.find_by_name "Luminosa"
+      @tickets = Purchase.where(:product_id => @product.id)
+      @ticket_users = []
+      @tickets.each {|ticket|
+        if User.exists?(ticket.buyer_id) 
+          user = User.find(ticket.buyer_id)
+          @ticket_users << {:name => user.name, :email => user.email, :purchase_id => ticket.id, :amount => ticket.purchase_price}
+        end
+      }
+
       respond_to do |format|
           format.html # new.html.erb
           format.json { render json: @product }
       end
-
+    end
   end
 
 

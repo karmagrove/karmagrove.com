@@ -1,1 +1,19 @@
-report.html.erb
+<h1> ticket users </h1>
+
+
+<% @ticket_users.each do |ticket| %>
+<div class="row">
+	<div class="col-sm-3">
+	  <%= ticket[:name]%> 
+	</div>
+	<div class="col-sm-3">
+	  <%= ticket[:email] %> 
+	</div>
+	<div class="col-sm-3">
+	  $<%= ticket[:amount].to_f/100 %> 
+	</div>
+	<div class="col-sm-3">
+	  <%= ticket[:id] %> 
+	</div>
+</div>
+<% end %>
