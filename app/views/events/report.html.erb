@@ -2,7 +2,11 @@
 
 
 <% @ticket_users.each do |ticket| %>
-<div class="row">
+  <div class="row">
+    <div class="col-sm-3">
+	  <%= ticket[:paid_description] %> 
+	  <%= ticket[:updated_at].to_s %> 
+	</div>
 	<div class="col-sm-3">
 	  <%= ticket[:name]%> 
 	</div>
@@ -15,5 +19,5 @@
 	<div class="col-sm-3">
 	  <%= ticket[:id] %> 
 	</div>
-</div>
+  </div>
 <% end %>
