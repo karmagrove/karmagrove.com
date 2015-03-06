@@ -178,6 +178,16 @@ class EventsController < InheritedResources::Base
 
   end
 
+  def report
+    @product = Event.find(params[:id])
+    @product ||= Product.find_by_name "Luminosa"
+      respond_to do |format|
+          format.html # new.html.erb
+          format.json { render json: @product }
+      end
+
+  end
+
 
 
 end

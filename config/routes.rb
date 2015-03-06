@@ -130,6 +130,8 @@ Karmagrove::Application.routes.draw do
 
   post 'events/:id/purchases/new' => 'purchases#create_event_purchase'
 
+  get '/events/:id/report/:secret' => 'events#report'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
