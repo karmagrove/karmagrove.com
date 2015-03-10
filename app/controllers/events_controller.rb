@@ -185,6 +185,7 @@ class EventsController < InheritedResources::Base
       @product ||= Product.find_by_name "Luminosa"
       @tickets = Purchase.where(:product_id => @product.id)
       @ticket_users = []
+      @ticket_total
       @tickets.each {|ticket|
         if User.exists?(ticket.buyer_id) 
           user = User.find(ticket.buyer_id)
