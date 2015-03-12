@@ -190,7 +190,7 @@ class EventsController < InheritedResources::Base
       @tickets.each {|ticket|
         if User.exists?(ticket.buyer_id) 
           user = User.find(ticket.buyer_id)
-          @ticket_total += ticket.amount.to_f/100 
+          @ticket_total += ticket.purchase_price.to_f/100 
           @ticket_users << {:paid_description => ticket.paid_description,:name => user.name, :email => user.email, :purchase_id => ticket.id, :amount => ticket.purchase_price, :bought_at => ticket.updated_at}
         end
       }
