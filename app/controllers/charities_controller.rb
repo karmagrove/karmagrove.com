@@ -6,7 +6,7 @@ class CharitiesController < ApplicationController
     @charity = Charity.new
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @purchase }
+      format.json { render json: @charity }
     end
   end
 
@@ -30,7 +30,16 @@ class CharitiesController < ApplicationController
     @charity = Charity.find params[:id]
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @purchase }
+      format.json { render json: @charity }
+    end
+  end
+
+  def suggest
+    @charity = Charity.new
+    # @charity.status = "suggested"
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @charity }
     end
   end
 
