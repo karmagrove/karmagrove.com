@@ -134,6 +134,21 @@ Karmagrove::Application.routes.draw do
 
   get '/events/:id/report/:secret' => 'events#report'
 
+  ## ## ## ## ## ##
+
+  ## FRONT DESK INTEGRATION ## 
+  
+  # get '/frontdesk/callback', to: 'sessions#create'
+  
+  # get '/auth/:provider', to: 'sessions#authenticate'
+  get '/auth/frontdesk', to: 'sessions#authenticate_pike13'
+  get '/callback/frontdesk', to: 'sessions#create_pike13'
+  # get '/', to: 'sessions#authenticate'
+
+  # coinbase stuff
+  # get '/auth/coinbase', to: 'sessions#authenticate'
+  # post '/callback/coinbase', to: 'sessions#authenticate'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
