@@ -11,15 +11,17 @@ class SessionsController < ApplicationController
     @client_id=ENV['CLIENT_ID']
     @client_secret=ENV['CLIENT_SECRET']
     @client = OAuth2::Client.new(@client_id, @client_secret, :site => 'https://frontdeskhq.com/oauth/authorize')  
-    url = @client.auth_code.authorize_url(:redirect_uri => 'http://www.reports.thecryozone.com/frontdesk/callback')
+    url = @client.auth_code.authorize_url(:redirect_uri => 'http://www.karmagrove.com/callback/frontdesk')
     redirect_to url
   end
 
   def create_pike13
+
     Rails.logger.info "session create!"
     session[:code] = params['code']
     Rails.logger.info "session code #{params['code']}"
     Rails.logger.info "session[:code] #{session[:code]}"
+    Rails.logger.info "session create for user #{user}!"
     Rails.logger.info "params.inspect #{params.inspect}, auth_hash #{auth_hash}"
     #redirect_to '/gas_deliveries'
     redirect_to '/profile'
